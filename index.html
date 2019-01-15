@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clearent JavaScript SDK by Clearent</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h1>Clearent JavaScript SDK</h1>
+
+        <p>Documentation and examples</p>
+
+        <menu>
+            <a class="active" href="index.html">Overview</a>
+            <a href="security.html">Security Considerations</a>
+            <a href="global.html">Configuration</a>
+            <a href="branding.html">Styling / Branding</a>
+            <a href="examples.html">Examples</a>
+        </menu>
+
+    </header>
+    <section>
+        <h3>JavaScript SDK Overview</h3>
+
+        <p>The JavaScript SDK is designed to allow integrators to seamlessly integrate payments into their website.
+            Clearent's JavaScript SDK uses iframes to incorporate the best practices for PCI security compliance
+            for e-commerce sites:
+            <a href="https://www.pcisecuritystandards.org/pdfs/best_practices_securing_ecommerce.pdf" target="_blank">
+                PCI Security Standard Council - Best Practices for Securing E-commerce</a>
+        </p>
+
+        <p>
+            The worst part about payment iframes is that they are not responsive and the host page cannot style the
+            contents.
+        </p>
+
+        <p>
+            The best part about <strong>Clearent JavaScript SDK</strong> payment iframe is that it <strong>is</strong>
+            responsive and the
+            host page <strong>can</strong> style the contents.
+
+        <h3>How it works</h3>
+
+        <p>The Clearent JavaScript SDK allows integrators to add a payment form to their website by simply copying and
+            pasting a few lines of code into their existing website.
+        </p>
+
+        <ol>
+            <li> Add a div to hold the payment form that Clearent will create. (<a href="examples.html">See our
+                examples.</a>)
+            </li>
+            <code>
+                &lt;div id="payment-form"&gt;&lt;/div&gt;
+            </code>
+
+            <li> Add the script tag to the Clearent JavaScript SDK library
+            </li>
+            <code>
+                &lt;script src="https://gateway-sb.clearent.net/js-sdk/js/clearent-host.js"&gt;&lt;/script&gt;
+            </code>
+
+            <li> Add callback handlers to your page to receive the success or error messages from the Clearent JavaScript SDK.</li>
+            <pre><code>
+&lt;script type="text/javascript"&gt;
+    // When you get a successful token response and
+    // use this to make a sale/auth on your backend
+    function ClearentTokenSuccess(raw, json) {
+        console.log("ClearentTokenSuccess");
+        console.log(raw);
+        console.log(json);
+
+        // now you can send the token to your server
+        // to complete the transaction via mobile-gateway
+
+    }
+
+    function ClearentTokenError(raw, json) {
+        console.log("ClearentTokenError");
+        console.log(raw);
+        console.log(json);
+
+    }
+&lt;/script&gt;
+            </code></pre>
+
+            <li> Call the init method with the baseUrl for sandbox and your sandbox public key. (<a href="global.html">Additional
+                configuration.</a>)
+                (production keys/url supplied by Clearent Implementations team)
+            </li>
+            <pre><code>
+&lt;script type="text/javascript"&gt;
+    ClearentSDK.init({
+        "baseUrl": "https://gateway-sb.clearent.net",
+        "pk": "YOUR PUBLIC KEY GOES HERE"
+    });
+&lt;/script&gt;
+            </code></pre>
+
+            <li> The cardholder interacts with the form and enters their payment information.
+            </li>
+
+            <li> When you are ready to make a payment, call the ClearentSDK.getPaymentToken method. For example, this
+                can be done from a submit button the user clicks.
+            </li>
+            <code>
+                ClearentSDK.getPaymentToken();
+            </code>
+
+            <li> Clearent JavaScript SDK makes a secure call to the Clearent JWT service and returns a secure,
+                encrypted JWT to the success callback function (ClearentTokenSuccess).
+                (note the jwt field below; that will be used on your backend call to complete the payment)</li>
+            <pre><code>
+{
+   "code":"200",
+   "status":"success",
+   "exchange-id":"ID-clearent-mobile-jwt-1-c32bfe39-d454-4e34-8b4f-94d850643e48",
+   "payload":{
+      "mobile-jwt":{
+         "jwt":"eyJhbGciOi23UzIh4iJ9.eyJsYXN0LWZvdXIiOiIxMrkP8iwid
+                HlwZSI6Ik1BTlVBTCIsImV4cCI6MTU0NzY0NjU2MSwidG9rZW4iOiIxMTAwMDAw
+                MDAwMDEzNTkyIn0.eT8c_5yUzxCxL2MEtmbG444eTFRW7OxzRF7x4uRIo-U",
+         "last-four":"1111"
+      },
+      "payloadType":"mobile-jwt"
+   }
+}
+            </code></pre>
+
+
+            <li> On your backend you will make a call to the clearent-mobile-gateway (mobilejwt is the jwt field from the response above)
+                <p></p>
+                <p>You can find more details in our <a href="http://api.clearent.com/swagger.html#!/Quest_API_Integration/Mobile_Payment_Transactions" target="_blank">Mobile Payment Transactions</a> documentation.</p>
+            </li>
+
+            <pre><code>
+POST /rest/v2/mobile/transactions/sale
+Accept:application/json
+Content-Type:application/json
+api-key:YOUR_API_KEY_GOES_HERE
+mobilejwt:eyJhbGciOi23UzIh4iJ9.eyJsYXN0LWZvdXIiOiIxMrkP8iwid
+ HlwZSI6Ik1BTlVBTCIsImV4cCI6MTU0NzY0NjU2MSwidG9rZW4iOiIxMTAw
+ MDAwMDAwMDEzNTkyIn0.eT8c_5yUzxCxL2MEtmbG444eTFRW7OxzRF7x4uRIo-U
+
+Body
+
+{
+    "type": "SALE",
+    "amount": "15.55",
+    "software-type": "AwesomePOSSoftware",
+    "software-type-version":"1"
+}
+            </code></pre>
+
+            <li> If the transaction was successful, you will receive a success response (or an error response if the transaction failed)</li>
+            <pre><code>
+{
+    "code": "200",
+    "status": "success",
+    "exchange-id": "ID-clearent-mobile-gateway-1-2a6b56d3-c660-4810-95ea-9fb9a21c6634",
+    "payload": {
+        "transaction": {
+            "amount": "15.55",
+            "id": "2586119",
+            "type": "SALE",
+            "result": "APPROVED",
+            "card": "XXXXXXXXXXXX1111",
+            "csc": "999",
+            "authorization-code": "TAS022",
+            "batch-string-id": "938",
+            "display-message": "Transaction approved",
+            "result-code": "000",
+            "exp-date": "1220",
+            "software-type": "AwesomePOSSoftware",
+            "card-type": "VISA",
+            "last-four": "1111"
+        },
+        "payloadType": "transaction"
+    }
+}
+            </code></pre>
+
+        </ol>
+
+        <h3>Get Started Today</h3>
+
+        <a href="https://developer.clearent.com/index.php/gatewayintegrationrequest/" target="_blank">Request an API key to get started.</a>
+
+
+    </section>
+    <footer>
+        <p>This project is maintained by <a href="https://github.com/Clearent">Clearent</a></p>
+
+        <p>
+            <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a>
+            </small>
+        </p>
+    </footer>
+</div>
+<script src="javascripts/scale.fix.js"></script>
+
+</body>
+</html>

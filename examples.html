@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clearent JavaScript SDK by Clearent</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Clearent JavaScript SDK</h1>
+        <p>Documentation and examples</p>
+
+        <menu>
+          <a href="index.html">Overview</a>
+          <a href="security.html">Security Considerations</a>
+          <a href="global.html">Configuration</a>
+          <a href="branding.html">Styling / Branding</a>
+          <a class="active" href="examples.html">Examples</a>
+        </menu>
+
+      </header>
+      <section>
+
+        <p></p>
+
+        <h3>Basic Example</h3>
+
+        <p>This code . . . </p>
+
+        <pre><code>
+&lt;script type="text/javascript"&gt;
+    ClearentSDK.init({
+        "baseUrl": "https://gateway-sb.clearent.net",
+        "pk": "YOUR PUBLIC KEY GOES HERE"
+    });
+&lt;/script&gt;
+            </code></pre>
+
+        <p>Produces this form: </p>
+
+        <img src="images/example01.png"/>
+
+        <h3>Customize Placeholders</h3>
+
+        <p>This code . . . </p>
+
+        <pre><code>
+&lt;script type="text/javascript"&gt;
+    ClearentSDK.init({
+        "baseUrl": "https://gateway-sb.clearent.net",
+        "pk": "YOUR PUBLIC KEY GOES HERE",
+        "cardPlaceholder": "Enter credit/debit card number",
+        "expDatePlaceholder": "Enter card expiration date",
+        "cvcPlaceholder": "Card Security Code"
+    });
+&lt;/script&gt;
+            </code></pre>
+
+        <p>Produces this form: </p>
+
+        <img src="images/example02.png"/>
+
+        <h3>Show Fields Unmasked</h3>
+
+        <p>This code . . . </p>
+
+        <pre><code>
+&lt;script type="text/javascript"&gt;
+    ClearentSDK.init({
+        "baseUrl": "https://gateway-sb.clearent.net",
+        "pk": "YOUR PUBLIC KEY GOES HERE",
+        "cardMasked": false,
+        "expDateMasked": false,
+        "cvcMasked": false
+    });
+&lt;/script&gt;
+            </code></pre>
+
+        <p>Produces a form where the card data is not masked when the field loses focus. This may be helpful
+        in certain POS implementations but is not recommended for a cardholder-facing solution.</p>
+
+        <img src="images/example03.png"/>
+
+
+
+
+
+
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Clearent">Clearent</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>

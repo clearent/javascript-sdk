@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clearent JavaScript SDK by Clearent</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Clearent JavaScript SDK</h1>
+        <p>Documentation and examples</p>
+
+        <menu>
+          <a href="index.html">Overview</a>
+          <a href="security.html">Security Considerations</a>
+          <a href="global.html">Configuration</a>
+          <a class="active" href="branding.html">Styling / Branding</a>
+          <a href="examples.html">Examples</a>
+        </menu>
+
+      </header>
+      <section>
+        <h3>Designed with styling in mind</h3>
+
+        <p>The Clearent JavaScript SDK iframe contents can be styled by setting the
+          styles attribute in the call to the ClearentSDK.init() method.
+
+        <pre><code>
+&lt;script type="text/javascript"&gt;
+    ClearentSDK.init({
+        "baseUrl": "https://gateway-sb.clearent.net",
+        "pk": "YOUR PUBLIC KEY GOES HERE",
+        "styles": ".form-control{color: blue;}.form-control:focus{color: purple;}"
+    });
+&lt;/script&gt;
+            </code></pre>
+
+          <p>The above styles will generate a form with blue text in the input fields that show as purple when focused.</p>
+
+          <img src="images/styles01.png"/>
+
+        <p></p>
+        <p>You can use your developer toolbar to access the element classes, ids, and structure to help you build any override styles.</p>
+
+        <img src="images/styles02.png"/>
+
+        <h3>Disallowed Style Behaviors</h3>
+
+          <p>By default, all style attributes are allowed. Any style that references external resources will be disallowed
+              because an external resource could be used in inject a scripting attack.</p>
+
+          <p>The following example that attempts to set a background-url to an external resource will be blocked.</p>
+
+          <pre><code>
+&lt;script type="text/javascript"&gt;
+    ClearentSDK.init({
+        "baseUrl": "https://gateway-sb.clearent.net",
+        "pk": "YOUR PUBLIC KEY GOES HERE",
+        "styles": ".form-control{background: url('http://bad-guy-server/evil-endpoint/logo.jpg');}"
+    });
+&lt;/script&gt;
+            </code></pre>
+
+          <p>Attempting to set external resource or data/blob content values will generate errors and that style will be ignored.</p>
+
+          <img src="images/styles03.png"/>
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Clearent">Clearent</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clearent JavaScript SDK by Clearent</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h1>Clearent JavaScript SDK</h1>
+
+        <p>Documentation and examples</p>
+
+        <menu>
+            <a href="index.html">Overview</a>
+            <a class="active" href="security.html">Security Considerations</a>
+            <a href="global.html">Configuration</a>
+            <a href="branding.html">Styling / Branding</a>
+            <a href="examples.html">Examples</a>
+        </menu>
+
+    </header>
+    <section>
+        <h3>Security Requirements</h3>
+        <ul>
+            <li>Your website must use HTTPS.</li>
+            <li>Your website must not be framed in a website/domain that is not configured for your public key.</li>
+            <li>Do not publish your public Key outside of your code.</li>
+            <li>JavaScript SDK will only work on the website(s)/domain(s) you registered when onboarding to a JavaScript
+                SDK account.
+            </li>
+        </ul>
+
+        <h3>Browser Support</h3>
+
+        <p>
+            Clearent’s Hosted Payments Page solution will work with
+        <ul>
+            <li>Chrome</li>
+            <li>Firefox</li>
+            <li>Safari</li>
+            <li>Edge</li>
+            <li>IE11</li>
+        </ul>
+
+        Browsers are only supported in configurations supported by the browser manufacturer. For example, IE11 is
+        supported but it is not supported in iOS as this operating system is not a supported configuration by
+        the manufacturer.
+        </p>
+
+
+        <h3>Card Validation</h3>
+
+        <p>In accordance with best security practices, all client data is validated on Clearent servers. We do perform
+            basic client-side validation to improve the user-experience and reduce errors.
+        </p>
+
+        <p>Credit card numbers are validated on the client as follows:</p>
+
+        <ul>
+            <li> Get card token or card field value (remove any non-numeric characters)</li>
+            <li> Remaining digits must pass Luhn algorithm. This does not guarantee that the card is valid, simply that
+                the card could be a valid card. This is done to help prevent typing errors.
+            </li>
+        </ul>
+
+        <p>The card number is not validated during this process
+            and the user may
+            have still entered a cancelled, non-issued or otherwise invalid card. The payment information is not
+            validated on the backend
+            until the sale request is made from your backend.
+        </p>
+
+        <p>This behavior is intentional and is done to prevent a hacker from attempting to use your website as a
+            validator for stolen
+            credit cards.
+        </p>
+
+        <h3>Expiration Date Validation</h3>
+
+        <p>Expiration date is required for all transactions unless the merchant is storing and presenting card tokens to
+            the user</p>
+        <ul>
+            <li> Get expiration date field (remove any non-numeric characters)</li>
+            <li> Entered value must be four digits, 2-digit month and 2-digit year (MMYY)</li>
+            <li> Entered year must be > current year OR (entered year must be >= current year AND entered month must be
+                >= current month)
+            </li>
+        </ul>
+
+        <h3>CSC/CVC Validation</h3>
+
+        By default, the card security code (CSC, CID, CVC, CVV, CVV2) is required for all transactions.
+        <ul>
+            <li> Get CSC/CVC field (remove any non-numeric characters)</li>
+            <li> If card is Visa, MasterCard, Discover, Diner’s Club or JCB then the security code must be 3 digits</li>
+            <li> If card is American Express then security code must be 4 digits</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>This project is maintained by <a href="https://github.com/Clearent">Clearent</a></p>
+
+        <p>
+            <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a>
+            </small>
+        </p>
+    </footer>
+</div>
+<script src="javascripts/scale.fix.js"></script>
+
+</body>
+</html>
