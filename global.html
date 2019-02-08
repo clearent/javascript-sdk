@@ -1071,20 +1071,13 @@
                       </dd>
                     </dl>
                     <h5>Example</h5>
-                    <pre class="sunlight-highlight-javascript">// Sandbox URL for testing; use Sandbox public key
+                    <pre class="sunlight-highlight-javascript">// Sandbox URL for testing
+//  use Sandbox public key
 &lt;script src=&quot;https://gateway-sb.clearent.net/js-sdk/js/clearent-host.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-ClearentSDK.payButton({
+ClearentSDK.init({
     &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
     &quot;pk&quot;: &quot;YOUR_SANDBOX_PUBLIC_KEY_HERE&quot;,
-});
-&lt;/script&gt;
-// Production URL for live transactions; use Production public key
-&lt;script src=&quot;https://gateway.clearent.net/js-sdk/js/clearent-host.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-ClearentSDK.payButton({
-    &quot;baseUrl&quot;: &quot;https://gateway.clearent.net&quot;,
-    &quot;pk&quot;: &quot;YOUR_PRODUCTION_PUBLIC_KEY_HERE&quot;,
 });
 &lt;/script&gt;</pre>
                   </dd>
