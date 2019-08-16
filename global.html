@@ -555,6 +555,7 @@
                     <pre class="sunlight-highlight-javascript">ClearentSDK.init({
     &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
     &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;enableReader&quot;: &quot;true&quot;
     &quot;deviceType&quot;: &quot;IDTECH&quot;
 });</pre>
                   </dd>
@@ -565,7 +566,7 @@
                   </dt>
                   <dd>
                     <div class="description">
-                      Determines if external readers are support. Created a "Card Reader" button in the card field to begin reading
+                      Determines if external readers are support. Creates a "Card Reader" button in the card field to begin reading
                       from external keyboard-emulation card reader.
                       Contact your Clearent representative for supported external readers.
                     </div>
@@ -599,7 +600,8 @@
                     <pre class="sunlight-highlight-javascript">ClearentSDK.init({
     &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
     &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
-    &quot;enableReader&quot;: &quot;true&quot;
+    &quot;enableReader&quot;: &quot;true&quot;,
+    &quot;deviceType&quot;: &quot;IDTECH&quot;
 });</pre>
                   </dd>
                   <hr>
@@ -684,7 +686,7 @@
                     <pre class="sunlight-highlight-javascript">ClearentSDK.init({
     &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
     &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
-    &quot;successCallback&quot;: &quot;myCustomErrorHandler&quot;
+    &quot;errorCallback&quot;: &quot;myCustomErrorHandler&quot;
 });</pre>
                   </dd>
                   <hr>
