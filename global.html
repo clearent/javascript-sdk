@@ -96,13 +96,131 @@
                 <h3 class="subsection-title">Members</h3>
                 <dl>
                   <hr>
+                  <dt class="name" id="accountNumberMasked">
+                    <h4 id="accountNumberMasked"><span
+                            class="type-signature"></span>accountNumberMasked<span class="type-signature"> :boolean</span>
+                    </h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Determines if Account Number field should be masked when field is not active. If
+                      true, when
+                      the field has focus you can see the data, when the field loses focus, the data is
+                      obfuscated.
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">boolean</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.02</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>true</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;accountNumberMasked&quot;: false
+});</pre>
+                  </dd>
+                  <hr>
+                  <dt class="name" id="accountNumberPlaceholder">
+                    <h4 id="accountNumberPlaceholder"><span class="type-signature"></span>accountNumberPlaceholder<span
+                            class="type-signature"> :string</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      text to appear in Account Number input field when Routing Number value has not yet
+                      been entered
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">string</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.06.30</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>Account Number</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;accountNumberPlaceholder&quot;: &quot;Bank account number&quot;
+});</pre>
+                  </dd>
+                  <hr>
+                  <dt class="name" id="accountTypePlaceholder">
+                    <h4 id="accountTypePlaceholder"><span class="type-signature"></span>accountTypePlaceholder<span
+                            class="type-signature"> :string</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      text to appear in Account Type input field when Account Type has not yet been
+                      selected
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">string</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.06</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>Account Type</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;accountTypePlaceholder&quot;: &quot;Bank Account Type&quot;
+});</pre>
+                  </dd>
+                  <hr>
                   <dt class="name" id="allowAutoComplete">
                     <h4 id="allowAutoComplete"><span class="type-signature"></span>allowAutoComplete<span
                             class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
-                      Determines if autocomplete is enabled for payment fields. Set to true for cardholder-facing
+                      Determines if autocomplete is enabled for payment fields. Set to true for
+                      cardholder-facing
                       implementation and false for merchant-facing implementation
                     </div>
                     <h5>Type:</h5>
@@ -118,7 +236,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -133,8 +252,46 @@
 });</pre>
                   </dd>
                   <hr>
+                  <dt class="name" id="allowEmbedded">
+                    <h4 id="allowEmbedded"><span class="type-signature"></span>allowEmbedded<span
+                            class="type-signature"> :boolean</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      determines if javascript-sdk's host page can be embedded in another page
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">boolean</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2019.10.08</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>true</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;allowEmbedded&quot;: false
+});</pre>
+                  </dd>
+                  <hr>
                   <dt class="name" id="baseUrl">
-                    <h4 id="baseUrl"><span class="type-signature"></span>baseUrl<span class="type-signature"> :string</span></h4>
+                    <h4 id="baseUrl"><span class="type-signature"></span>baseUrl<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -153,7 +310,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>null</li>
@@ -167,9 +325,63 @@
 });</pre>
                   </dd>
                   <hr>
+                  <dt class="name" id="blockMetaKeys">
+                    <h4 id="blockMetaKeys"><span class="type-signature"></span>blockMetaKeys<span
+                            class="type-signature"> :MODES</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Determines if meta key combinations (alt or ctrl) are blocked for the hosting page.
+                      Some card readers may
+                      generate keystrokes that include meta keys even after the card read is complete.
+                      This can cause strange behaviors in the
+                      browser window (zooming in or opening print dialogs for example). This will block
+                      the key metaKey combinations on all pages
+                      that contain the Clearent script.
+                      Note: enableReader must be set to true also or this setting will have no effect.
+                      Certain meta-keys are filtered by
+                      the browser first and cannot be blocked such as ctrl-w (close window), ctrl-n (new
+                      window), or ctrl-t (new tab)
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">MODES</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2012.07.28</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>false</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+                      <dd class="tag-see">
+                        <ul>
+                          <li><a href="global.html#enableReader">enableReader</a></li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;enableReader&quot;: &quot;true&quot;,
+    &quot;blockMetaKeys&quot;: &quot;true&quot;
+});</pre>
+                  </dd>
+                  <hr>
                   <dt class="name" id="cardFormatted">
-                    <h4 id="cardFormatted"><span class="type-signature"></span>cardFormatted<span class="type-signature"> :boolean</span>
-                    </h4>
+                    <h4 id="cardFormatted"><span class="type-signature"></span>cardFormatted<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -190,7 +402,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -206,12 +419,14 @@
                   </dd>
                   <hr>
                   <dt class="name" id="cardMasked">
-                    <h4 id="cardMasked"><span class="type-signature"></span>cardMasked<span class="type-signature"> :boolean</span></h4>
+                    <h4 id="cardMasked"><span class="type-signature"></span>cardMasked<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
                       Determines if card field should be masked when field is not active. If true, when
-                      the field has focus you can see the data, when the field loses focus, the data is obfuscated.
+                      the field has focus you can see the data, when the field loses focus, the data is
+                      obfuscated.
                       Recommended true for cardholder-facing implementations.
                     </div>
                     <h5>Type:</h5>
@@ -227,7 +442,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -263,7 +479,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>Card number</li>
@@ -299,7 +516,8 @@
                           <li>2018.02.07</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>ClearentCardReadComplete</li>
@@ -308,8 +526,11 @@
                       <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
                       <dd class="tag-see">
                         <ul>
-                          <li><a href="global.html#ClearentCardReadComplete">ClearentCardReadComplete</a></li>
-                          <li><a href="global.html#cardReadStartCallback">cardReadStartCallback</a></li>
+                          <li>
+                            <a href="global.html#ClearentCardReadComplete">ClearentCardReadComplete</a>
+                          </li>
+                          <li><a href="global.html#cardReadStartCallback">cardReadStartCallback</a>
+                          </li>
                         </ul>
                       </dd>
                     </dl>
@@ -322,8 +543,8 @@
                   </dd>
                   <hr>
                   <dt class="name" id="cardReadStartCallback">
-                    <h4 id="cardReadStartCallback"><span class="type-signature"></span>cardReadStartCallback<span class="type-signature"> :string</span>
-                    </h4>
+                    <h4 id="cardReadStartCallback"><span class="type-signature"></span>cardReadStartCallback<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -342,7 +563,8 @@
                           <li>2018.02.07</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>ClearentCardReadStart</li>
@@ -351,8 +573,11 @@
                       <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
                       <dd class="tag-see">
                         <ul>
-                          <li><a href="global.html#ClearentCardReadStart">ClearentCardReadStart</a></li>
-                          <li><a href="global.html#cardReadCompleteCallback">cardReadCompleteCallback</a></li>
+                          <li><a href="global.html#ClearentCardReadStart">ClearentCardReadStart</a>
+                          </li>
+                          <li>
+                            <a href="global.html#cardReadCompleteCallback">cardReadCompleteCallback</a>
+                          </li>
                         </ul>
                       </dd>
                     </dl>
@@ -365,13 +590,14 @@
                   </dd>
                   <hr>
                   <dt class="name" id="clearFormOnSuccess">
-                    <h4 id="clearFormOnSuccess"><span class="type-signature"></span>clearFormOnSuccess<span class="type-signature"> :boolean</span>
-                    </h4>
+                    <h4 id="clearFormOnSuccess"><span class="type-signature"></span>clearFormOnSuccess<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
                       Determines if the form should be cleared on a successful call to
-                      getPaymentToken. This may be useful if reusing the form in a back office implementation.
+                      getPaymentToken. This may be useful if reusing the form in a back office
+                      implementation.
                     </div>
                     <h5>Type:</h5>
                     <ul>
@@ -386,7 +612,8 @@
                           <li>2019.07.08</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>false</li>
@@ -408,12 +635,14 @@
                   </dd>
                   <hr>
                   <dt class="name" id="cvcMasked">
-                    <h4 id="cvcMasked"><span class="type-signature"></span>cvcMasked<span class="type-signature"> :boolean</span></h4>
+                    <h4 id="cvcMasked"><span class="type-signature"></span>cvcMasked<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
                       Determines if csc/csc field should be masked when field is not active. If true, when
-                      the field has focus you can see the data, when the field loses focus, the data is obfuscated.
+                      the field has focus you can see the data, when the field loses focus, the data is
+                      obfuscated.
                       Recommended true for cardholder-facing implementations.
                     </div>
                     <h5>Type:</h5>
@@ -429,7 +658,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -445,8 +675,8 @@
                   </dd>
                   <hr>
                   <dt class="name" id="cvcPlaceholder">
-                    <h4 id="cvcPlaceholder"><span class="type-signature"></span>cvcPlaceholder<span class="type-signature"> :string</span>
-                    </h4>
+                    <h4 id="cvcPlaceholder"><span class="type-signature"></span>cvcPlaceholder<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -465,7 +695,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>CSC</li>
@@ -481,7 +712,8 @@
                   </dd>
                   <hr>
                   <dt class="name" id="cvcRequired">
-                    <h4 id="cvcRequired"><span class="type-signature"></span>cvcRequired<span class="type-signature"> :boolean</span></h4>
+                    <h4 id="cvcRequired"><span class="type-signature"></span>cvcRequired<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -500,7 +732,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -516,12 +749,13 @@
                   </dd>
                   <hr>
                   <dt class="name" id="deviceType">
-                    <h4 id="deviceType"><span class="type-signature"></span>deviceType<span class="type-signature"> :string</span></h4>
+                    <h4 id="deviceType"><span class="type-signature"></span>deviceType<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
-                      Device type of external keyboard-emulation card reader to be used. This field is required when enabling external
-                      card reader.
+                      Device type of external keyboard-emulation card reader to be used. This field is
+                      required when enabling external card reader.
                       Contact your Clearent representative for supported external readers.
                       Supported formats include: IDTECH
                     </div>
@@ -538,7 +772,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>null</li>
@@ -560,20 +795,58 @@
 });</pre>
                   </dd>
                   <hr>
-                  <dt class="name" id="enableReader">
-                    <h4 id="enableReader"><span class="type-signature"></span>enableReader<span class="type-signature"> :string</span>
-                    </h4>
+                  <dt class="name" id="enableAch">
+                    <h4 id="enableAch"><span class="type-signature"></span>enableAch<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
-                      Determines if external readers are support. Creates a "Card Reader" button in the card field to begin reading
+                      enables the option for the customer to pay with online-check.
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">boolean</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>1.2020.06.30</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>false</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;enableAch&quot;: true
+});</pre>
+                  </dd>
+                  <hr>
+                  <dt class="name" id="enableReader">
+                    <h4 id="enableReader"><span class="type-signature"></span>enableReader<span
+                            class="type-signature"> :boolean</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Determines if external readers are support. Creates a "Card Reader" button in the
+                      card field to begin reading
                       from external keyboard-emulation card reader.
                       Contact your Clearent representative for supported external readers.
                     </div>
                     <h5>Type:</h5>
                     <ul>
                       <li>
-                        <span class="param-type">string</span>
+                        <span class="param-type">boolean</span>
                       </li>
                     </ul>
                     <dl class="details">
@@ -583,7 +856,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>false</li>
@@ -626,7 +900,8 @@
                           <li>2018.02.07</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>ClearentEntryModeChange</li>
@@ -648,8 +923,8 @@
                   </dd>
                   <hr>
                   <dt class="name" id="errorCallback">
-                    <h4 id="errorCallback"><span class="type-signature"></span>errorCallback<span class="type-signature"> :string</span>
-                    </h4>
+                    <h4 id="errorCallback"><span class="type-signature"></span>errorCallback<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -669,7 +944,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>ClearentTokenError</li>
@@ -697,7 +973,8 @@
                   <dd>
                     <div class="description">
                       Determines if expiration date field should be formatted on entry. Formatting shows
-                      the expiration date spaced in groups, similiar to how the date is displayed on the physical card.
+                      the expiration date spaced in groups, similiar to how the date is displayed on the
+                      physical card.
                       Recommended true for cardholder-facing implementations.
                     </div>
                     <h5>Type:</h5>
@@ -713,7 +990,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -729,13 +1007,15 @@
                   </dd>
                   <hr>
                   <dt class="name" id="expDateMasked">
-                    <h4 id="expDateMasked"><span class="type-signature"></span>expDateMasked<span class="type-signature"> :boolean</span>
-                    </h4>
+                    <h4 id="expDateMasked"><span class="type-signature"></span>expDateMasked<span
+                            class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
-                      Determines if expiration date field should be masked when field is not active. If true, when
-                      the field has focus you can see the data, when the field loses focus, the data is obfuscated.
+                      Determines if expiration date field should be masked when field is not active. If
+                      true, when
+                      the field has focus you can see the data, when the field loses focus, the data is
+                      obfuscated.
                       Recommended true for cardholder-facing implementations.
                     </div>
                     <h5>Type:</h5>
@@ -751,7 +1031,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -767,12 +1048,13 @@
                   </dd>
                   <hr>
                   <dt class="name" id="expDatePlaceholder">
-                    <h4 id="expDatePlaceholder"><span class="type-signature"></span>expDatePlaceholder<span class="type-signature"> :string</span>
-                    </h4>
+                    <h4 id="expDatePlaceholder"><span class="type-signature"></span>expDatePlaceholder<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
-                      text to appear in expiration date input field when expiration date value has not yet been entered
+                      text to appear in expiration date input field when expiration date value has not yet
+                      been entered
                     </div>
                     <h5>Type:</h5>
                     <ul>
@@ -787,7 +1069,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>MMYY</li>
@@ -802,9 +1085,100 @@
 });</pre>
                   </dd>
                   <hr>
+                  <dt class="name" id="individualNamePlaceholder">
+                    <h4 id="individualNamePlaceholder"><span class="type-signature"></span>individualNamePlaceholder<span
+                            class="type-signature"> :string</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      text to appear in Individual Name input field when Individual Name has not yet been
+                      selected
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">string</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.06</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>Name on account</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;individualNamePlaceholder&quot;: &quot;Name of account owner&quot;
+});</pre>
+                  </dd>
+                  <hr>
+                  <dt class="name" id="initialMode">
+                    <h4 id="initialMode"><span class="type-signature"></span>initialMode<span
+                            class="type-signature"> :string</span></h4>
+                    <p class="summary">WARNING: If set to reader (keyboard reader mode), the payment form
+                      will be actively listening for keystrokes generated from the card
+                      reader. Any keystrokes entered by the user will become part of the card read and
+                      could result in errors and retries. Please test to
+                      ensure this will work for your specific use case.</p>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Allows you to have the payment form open in manual card entry or keyboard reader
+                      mode.
+                      Optional modes: manual (default) | reader (ready to read swipe or dip). Has no
+                      effect unless enableReader is true.
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">string</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.08.17</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>manual</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+                      <dd class="tag-see">
+                        <ul>
+                          <li><a href="global.html#enableReader">enableReader</a></li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;enableReader&quot;: &quot;true&quot;,
+    &quot;deviceType&quot;: &quot;IDTECH&quot;,
+    &quot;defaultMode&quot;: &quot;reader&quot;
+});</pre>
+                  </dd>
+                  <hr>
                   <dt class="name" id="paymentFormId">
-                    <h4 id="paymentFormId"><span class="type-signature"></span>paymentFormId<span class="type-signature"> :string</span>
-                    </h4>
+                    <h4 id="paymentFormId"><span class="type-signature"></span>paymentFormId<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -824,7 +1198,8 @@
                           <li>2019.07.08</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>payment-form</li>
@@ -839,8 +1214,50 @@
 });</pre>
                   </dd>
                   <hr>
+                  <dt class="name" id="paymentTypeCallback">
+                    <h4 id="paymentTypeCallback"><span
+                            class="type-signature"></span>paymentTypeCallback<span class="type-signature"> :string</span>
+                    </h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Name of function to call on onPaymentTypeChange(); if defined on host this
+                      function is called if the payment type is changed. Values are either card or ach.
+                      Note this can only be used when ach is enabled.
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">string</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.06</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>ClearentOnPaymentTypeChange</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;enableAch&quot;: true,
+    &quot;paymentTypeCallback&quot;: &quot;myCustomPaymentTypeChangeHandler&quot;
+});</pre>
+                  </dd>
+                  <hr>
                   <dt class="name" id="pk">
-                    <h4 id="pk"><span class="type-signature"></span>pk<span class="type-signature"> :string</span></h4>
+                    <h4 id="pk"><span class="type-signature"></span>pk<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -859,7 +1276,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>null</li>
@@ -873,13 +1291,93 @@
 });</pre>
                   </dd>
                   <hr>
+                  <dt class="name" id="routingNumberMasked">
+                    <h4 id="routingNumberMasked"><span
+                            class="type-signature"></span>routingNumberMasked<span class="type-signature"> :boolean</span>
+                    </h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Determines if routing number field should be masked when field is not active. If
+                      true, when
+                      the field has focus you can see the data, when the field loses focus, the data is
+                      obfuscated.
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">boolean</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.02</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>true</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;routingNumberMasked&quot;: false
+});</pre>
+                  </dd>
+                  <hr>
+                  <dt class="name" id="routingNumberPlaceholder">
+                    <h4 id="routingNumberPlaceholder"><span class="type-signature"></span>routingNumberPlaceholder<span
+                            class="type-signature"> :string</span></h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      text to appear in Routing Number input field when Routing Number value has not yet
+                      been entered
+                    </div>
+                    <h5>Type:</h5>
+                    <ul>
+                      <li>
+                        <span class="param-type">string</span>
+                      </li>
+                    </ul>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.06.30</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
+                      <dd class="tag-default">
+                        <ul class="dummy">
+                          <li>Routing Number</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.init({
+    &quot;baseUrl&quot;: &quot;https://gateway-sb.clearent.net&quot;,
+    &quot;pk&quot;: &quot;YOUR_PUBLIC_KEY_HERE&quot;,
+    &quot;routingNumberPlaceholder&quot;: &quot;Bank Routing Number&quot;
+});</pre>
+                  </dd>
+                  <hr>
                   <dt class="name" id="showValidationMessages">
                     <h4 id="showValidationMessages"><span class="type-signature"></span>showValidationMessages<span
                             class="type-signature"> :boolean</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
-                      Determines if validation messages are displayed below the payment form. If you choose to handle
+                      Determines if validation messages are displayed below the payment form. If you
+                      choose to handle
                       messages elsewhere, set to false and configure validationMessagesCallback.
                     </div>
                     <h5>Type:</h5>
@@ -895,7 +1393,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>true</li>
@@ -917,12 +1416,14 @@
                   </dd>
                   <hr>
                   <dt class="name" id="styles">
-                    <h4 id="styles"><span class="type-signature"></span>styles<span class="type-signature"> :string</span></h4>
+                    <h4 id="styles"><span class="type-signature"></span>styles<span class="type-signature"> :string</span>
+                    </h4>
                   </dt>
                   <dd>
                     <div class="description">
                       String of styles to be applied to the iframed contents. You can examine the
-                      iframe via your browser's developer tools for id's and classes to use for supplementing
+                      iframe via your browser's developer tools for id's and classes to use for
+                      supplementing
                       page styles.
                     </div>
                     <h5>Type:</h5>
@@ -938,7 +1439,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>null</li>
@@ -975,7 +1477,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>ClearentTokenSuccess</li>
@@ -997,8 +1500,8 @@
                   </dd>
                   <hr>
                   <dt class="name" id="validationCallback">
-                    <h4 id="validationCallback"><span class="type-signature"></span>validationCallback<span class="type-signature"> :string</span>
-                    </h4>
+                    <h4 id="validationCallback"><span class="type-signature"></span>validationCallback<span
+                            class="type-signature"> :string</span></h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -1017,7 +1520,8 @@
                           <li>2019.01.11</li>
                         </ul>
                       </dd>
-                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+                      <dt class="tag-default method-doc-label method-doc-details-label">Default Value:
+                      </dt>
                       <dd class="tag-default">
                         <ul class="dummy">
                           <li>ClearentValidation</li>
@@ -1027,7 +1531,8 @@
                       <dd class="tag-see">
                         <ul>
                           <li><a href="global.html#ClearentValidation">ClearentValidation</a></li>
-                          <li><a href="global.html#showValidationMessages">showValidationMessages</a></li>
+                          <li><a href="global.html#showValidationMessages">showValidationMessages</a>
+                          </li>
                         </ul>
                       </dd>
                     </dl>
@@ -1043,7 +1548,46 @@
                 <dl>
                   <hr>
                   <dt>
-                    <h4 class="name" id="getPaymentToken"><span class="type-signature"></span>getPaymentToken()</h4>
+                    <h4 class="name" id="addMetaKeyBlocker"><span class="type-signature"></span>addMetaKeyBlocker()
+                    </h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Blocks meta key combinations (alt or ctrl) for the hosting page. Some card readers
+                      may
+                      generate keystrokes that include meta keys even after the card read is complete.
+                      This can cause strange behaviors in the
+                      browser window (zooming in or opening print dialogs for example). This will block
+                      the key metaKey combinations from executing
+                      in the browser.
+                      Note: enableReader must be set to true also or this setting will have no effect.
+                      Certain meta-keys are filtered by
+                      the browser first and cannot be blocked such as ctrl-w (close window), ctrl-n (new
+                      window), or ctrl-t (new tab)
+                    </div>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2012.07.28</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+                      <dd class="tag-see">
+                        <ul>
+                          <li><a href="global.html#removeMetaKeyBlocker">removeMetaKeyBlocker</a></li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">&lt;script&gt;
+ClearentSDK.addMetaKeyBlocker();
+&lt;/script&gt;</pre>
+                  </dd>
+                  <hr>
+                  <dt>
+                    <h4 class="name" id="getPaymentToken"><span class="type-signature"></span>getPaymentToken()
+                    </h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -1091,7 +1635,8 @@
                         <td class="type">
                           <span class="param-type">object</span>
                         </td>
-                        <td class="description last">JSON formatted object of properties to set when initializing the ClearentSDK.
+                        <td class="description last">JSON formatted object of properties to set when
+                          initializing the ClearentSDK.
                         </td>
                       </tr>
                       </tbody>
@@ -1115,12 +1660,66 @@ ClearentSDK.init({
 });
 &lt;/script&gt;</pre>
                   </dd>
+                  <hr>
+                  <dt>
+                    <h4 class="name" id="removeMetaKeyBlocker"><span class="type-signature"></span>removeMetaKeyBlocker()
+                    </h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Removes meta-key blocker enabled via blockMetaKeys property or addMetaKeyBlocker
+                      method.
+                      Useful if you need to re-enable meta-keys after completing the transaction and are
+                      still on the same page.
+                      Re-enabling this will restore functions such as print (ctrl-p), find (ctrl-f) and
+                      others.
+                    </div>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2012.07.28</li>
+                        </ul>
+                      </dd>
+                      <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+                      <dd class="tag-see">
+                        <ul>
+                          <li><a href="global.html#addMetaKeyBlocker">addMetaKeyBlocker</a></li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">&lt;script&gt;
+ClearentSDK.removeMetaKeyBlocker();
+&lt;/script&gt;</pre>
+                  </dd>
+                  <hr>
+                  <dt>
+                    <h4 class="name" id="reset"><span class="type-signature"></span>reset()</h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Resets the javascript sdk. This will completely destroy the ClearentIframe. Once
+                      this method is called you may call Clearent.init again.
+                    </div>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.13</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">ClearentSDK.reset();</pre>
+                  </dd>
                 </dl>
                 <h3 class="subsection-title">Type Definitions</h3>
                 <dl>
                   <hr>
                   <dt>
-                    <h4 class="name" id="ClearentCardReadComplete"><span class="type-signature"></span>ClearentCardReadComplete()</h4>
+                    <h4 class="name" id="ClearentCardReadComplete"><span class="type-signature"></span>ClearentCardReadComplete()
+                    </h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -1138,8 +1737,11 @@ ClearentSDK.init({
                       <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
                       <dd class="tag-see">
                         <ul>
-                          <li><a href="global.html#cardReadCompleteCallback">cardReadCompleteCallback</a></li>
-                          <li><a href="global.html#ClearentCardReadStart">ClearentCardReadStart</a></li>
+                          <li>
+                            <a href="global.html#cardReadCompleteCallback">cardReadCompleteCallback</a>
+                          </li>
+                          <li><a href="global.html#ClearentCardReadStart">ClearentCardReadStart</a>
+                          </li>
                         </ul>
                       </dd>
                     </dl>
@@ -1150,7 +1752,8 @@ ClearentSDK.init({
                   </dd>
                   <hr>
                   <dt>
-                    <h4 class="name" id="ClearentCardReadStart"><span class="type-signature"></span>ClearentCardReadStart()</h4>
+                    <h4 class="name" id="ClearentCardReadStart"><span class="type-signature"></span>ClearentCardReadStart()
+                    </h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -1167,8 +1770,11 @@ ClearentSDK.init({
                       <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
                       <dd class="tag-see">
                         <ul>
-                          <li><a href="global.html#cardReadStartCallback">cardReadStartCallback</a></li>
-                          <li><a href="global.html#ClearentCardReadComplete">ClearentCardReadComplete</a></li>
+                          <li><a href="global.html#cardReadStartCallback">cardReadStartCallback</a>
+                          </li>
+                          <li>
+                            <a href="global.html#ClearentCardReadComplete">ClearentCardReadComplete</a>
+                          </li>
                         </ul>
                       </dd>
                     </dl>
@@ -1179,7 +1785,8 @@ ClearentSDK.init({
                   </dd>
                   <hr>
                   <dt>
-                    <h4 class="name" id="ClearentEntryModeChange"><span class="type-signature"></span>ClearentEntryModeChange(mode)</h4>
+                    <h4 class="name" id="ClearentEntryModeChange"><span class="type-signature"></span>ClearentEntryModeChange(mode)
+                    </h4>
                   </dt>
                   <dd>
                     <div class="description">
@@ -1201,7 +1808,8 @@ ClearentSDK.init({
                         <td class="type">
                           <span class="param-type">string</span>
                         </td>
-                        <td class="description last">manual|emv_kb_reader current mode of the SDK; manual
+                        <td class="description last">manual|emv_kb_reader current mode of the SDK;
+                          manual
                           entry of card information or card reader mode for EVM dip/swipe/tap
                         </td>
                       </tr>
@@ -1217,13 +1825,59 @@ ClearentSDK.init({
                       <dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
                       <dd class="tag-see">
                         <ul>
-                          <li><a href="global.html#entryModeChangeCallback">entryModeChangeCallback</a></li>
+                          <li>
+                            <a href="global.html#entryModeChangeCallback">entryModeChangeCallback</a>
+                          </li>
                         </ul>
                       </dd>
                     </dl>
                     <h5>Example</h5>
                     <pre class="sunlight-highlight-javascript">function ClearentEntryModeChange(mode){
      console.log(&quot;User set SDK to mode: &quot;, mode);
+ }</pre>
+                  </dd>
+                  <hr>
+                  <dt>
+                    <h4 class="name" id="ClearentOnPaymentTypeChange"><span class="type-signature"></span>ClearentOnPaymentTypeChange(paymentType)
+                    </h4>
+                  </dt>
+                  <dd>
+                    <div class="description">
+                      Callback on getPaymentToken response; if defined on host this
+                      function is called if getPaymentToken was successful.
+                      The function will receive a raw server response as well as a
+                      JSON-formatted response data object.
+                    </div>
+                    <h5>Parameters:</h5>
+                    <table class="params table table-striped">
+                      <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th class="last">Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td class="name"><code>paymentType</code></td>
+                        <td class="type">
+                          <span class="param-type">string</span>
+                        </td>
+                        <td class="description last">changed by payment type change event.</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <dl class="details">
+                      <dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+                      <dd class="tag-since">
+                        <ul class="dummy">
+                          <li>2020.07.06</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <h5>Example</h5>
+                    <pre class="sunlight-highlight-javascript">function ClearentOnPaymentTypeChange(paymentType) {
+     console.log(&quot;Payment Type was changed to: &quot; + paymentType);
  }</pre>
                   </dd>
                   <hr>
@@ -1350,12 +2004,14 @@ ClearentSDK.init({
                   </dd>
                   <hr>
                   <dt>
-                    <h4 class="name" id="ClearentValidation"><span class="type-signature"></span>ClearentValidation(messages)</h4>
+                    <h4 class="name" id="ClearentValidation"><span class="type-signature"></span>ClearentValidation(messages)
+                    </h4>
                   </dt>
                   <dd>
                     <div class="description">
                       Callback on payment form validation; if defined on host this
-                      function is called for each field validation event with a JavaScript array of validation messages.
+                      function is called for each field validation event with a JavaScript array of
+                      validation messages.
                       Array will be empty if field information is valid.
                     </div>
                     <h5>Parameters:</h5>
