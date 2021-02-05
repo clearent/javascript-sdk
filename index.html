@@ -67,7 +67,9 @@
                 &lt;script src="https://gateway-sb.clearent.net/js-sdk/js/clearent-host.js"&gt;&lt;/script&gt;
             </code>
 
-            <li> Add callback handlers to your page to receive the success or error messages from the Clearent JavaScript SDK.</li>
+            <li> <a name="callbacks"><b>Using Global Callback Handlers</b></a>: Add callback handlers to your page to receive the success or error messages from the Clearent JavaScript SDK.
+                If you prefer not to use global callback handlers, you can also return the success and error messages from a promise (<a href="#promises">promise example below</a>)
+            </li>
             <pre><code>
 &lt;script type="text/javascript"&gt;
     // When you get a successful token response and
@@ -110,9 +112,32 @@
             <li> When you are ready to make a payment, call the ClearentSDK.getPaymentToken method. For example, this
                 can be done from a submit button the user clicks.
             </li>
-            <code>
-                ClearentSDK.getPaymentToken();
-            </code>
+        <pre><code>
+ClearentSDK.getPaymentToken();
+        </code></pre>
+
+            When the getPaymentToken() method is called in this manner, the success or error message will be handled by the success and error callbacks
+            (<a href="#callbacks">callback function example above</a>).
+            <p></p>
+
+            <a name="promises"><b>Using Promises</b></a>: Alternatively you may wish to uses promises for the response from the ClearentSDK.getPaymentToken() method.
+            Below is an example of the getPaymentToken() called using promises.
+
+            <pre><code>
+ClearentSDK.getPaymentToken().then(
+    (result) => {
+        // this function is called if getting a payment token was successful
+        console.log("ClearentTokenSuccess");
+        console.log(result);
+    },
+    (error) => {
+        // this function is called if getting a payment token failed
+        console.log("ClearentTokenError");
+        console.log(error);
+    }
+);
+           </code></pre>
+            </li>
 
             <li> Clearent JavaScript SDK makes a secure call to the Clearent JWT service and returns a secure,
                 encrypted JWT to the success callback function (ClearentTokenSuccess).
