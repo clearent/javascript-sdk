@@ -36,19 +36,16 @@
 
         <h3>Technical Requirements</h3>
         <ul>
-            <li><span class="bold">JavaScript-SDK is designed to work with modern browsers</span> (see Browser Support
-                below). If you wish to support legacy browsers
-                (such as IE 11 or Legacy-Edge) for your customers, you must add a Polyfill to the page that hosts the
-                Javascript-SDK:
+            <li>JavaScript-SDK is designed to work with modern browsers (see Browser Support
+                below). If you wish to support legacy browsers (such as IE 11 or Legacy-Edge) for your customers,
+                you <span class="bold">MUST</span> add a Polyfill to the page that hosts the  Javascript-SDK:
             </li>
             <ul>
                 <li><span class="bold">&lt;script src="https://polyfill.io/v3/polyfill.min.js?features=es5,es6,es7&amp;flags=gated">&lt;/script></span></li>
             </ul>
-            <li><span class="bold"> When using the VP8300 USB card reader:</span></li>
-            <ul>
-                <li>The reader must have firmware 2.0 or higher installed</li>
-                <li>The host reader must be plugged into a USB port supporting USB 2.0 or higher</li>
-            </ul>
+            <li>The page that hosts the JavaScript-SDK <span class="bold">MUST</span> be hosted on a webserver. The JavaScript-SDK will not work if
+                the page is loaded via the <a class="bold" href="https://en.wikipedia.org/wiki/File_URI_scheme" target="_blank">file URI scheme</a>.</li>
+            <li>When using the VP8300 USB card reader, the reader must be plugged into a USB port supporting USB 2.0 or higher</li>
         </ul>
 
         <h3>Browser Support</h3>
