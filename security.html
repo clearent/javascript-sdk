@@ -31,11 +31,24 @@
         <h3>Security Requirements</h3>
         <ul>
             <li>Your website must use HTTPS.</li>
-            <li>Your website must not be framed in a website/domain that is not configured for your public key.</li>
             <li>Do not publish your public Key outside of your code.</li>
-            <li>JavaScript SDK will only work on the website(s)/domain(s) you registered when onboarding to a JavaScript
-                SDK account.
+        </ul>
+
+        <h3>Technical Requirements</h3>
+        <ul>
+            <li><span class="bold">JavaScript-SDK is designed to work with modern browsers</span> (see Browser Support
+                below). If you wish to support legacy browsers
+                (such as IE 11 or Legacy-Edge) for your customers, you must add a Polyfill to the page that hosts the
+                Javascript-SDK:
             </li>
+            <ul>
+                <li><span class="bold">&lt;script src="https://polyfill.io/v3/polyfill.min.js?features=es5,es6,es7&amp;flags=gated">&lt;/script></span></li>
+            </ul>
+            <li><span class="bold"> When using the VP8300 USB card reader:</span></li>
+            <ul>
+                <li>The reader must have firmware 2.0 or higher installed</li>
+                <li>The host reader must be plugged into a USB port supporting USB 2.0 or higher</li>
+            </ul>
         </ul>
 
         <h3>Browser Support</h3>
@@ -51,26 +64,33 @@
         <h3>Ending Support For IE 11 Browser and Legacy Edge</h3>
 
         <p>
-            On August 17, 2020 <a target="_blank" href="https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666">
-            Microsoft announced that they would be ending support for IE 11 or legacy Edge in Microsoft Teams and M365</a>. We believe that focusing on modern browsers that
+            On August 17, 2020 <a target="_blank"
+                                  href="https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666">
+            Microsoft announced that they would be ending support for IE 11 or legacy Edge in Microsoft Teams and
+            M365</a>. We believe that focusing on modern browsers that
             provide a faster, more secure, more robust browsing experience is the right decision.
         </p>
 
         <p>
-            Beginning <b>July 1st, 2021</b>, we will no longer be providing coding shims (polyfills) for missing functionality in IE 11 or legacy Edge. <i>Please note, legacy Edge refers to the
+            Beginning <b>July 1st, 2021</b>, we will no longer be providing coding shims (polyfills) for missing
+            functionality in IE 11 or legacy Edge. <i>Please note, legacy Edge refers to the
             older pre-Chromium Edge browser released prior to January 2020. Modern Edge browser is supported.</i>
         </p>
 
         <p>
-            We understand that some merchants may wish to support IE 11 or legacy Edge for their websites (or applications that embed a Web Browser control based on an older browser)
-            that use the Clearent JavaScript SDK. Our recommendation is to use <a target="_blank" href="https://polyfill.io/v3/">Polyfill.io</a>. The script tag below,
-            when added to your page, will polyfill newer JavaScript functionality that is missing in IE 11 and legacy Edge. <i><b>Failure to add this script (or your own polyfill
+            We understand that some merchants may wish to support IE 11 or legacy Edge for their websites (or
+            applications that embed a Web Browser control based on an older browser)
+            that use the Clearent JavaScript SDK. Our recommendation is to use <a target="_blank"
+                                                                                  href="https://polyfill.io/v3/">Polyfill.io</a>.
+            The script tag below,
+            when added to your page, will polyfill newer JavaScript functionality that is missing in IE 11 and legacy
+            Edge. <i><b>Failure to add this script (or your own polyfill
             if desired) by July 1st, 2021 may render the Clearent JavaScript SDK inoperable on IE 11 or legacy Edge.</b></i>
         </p>
 
-<xmp>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es5,es6,es7&flags=gated"></script>
-</xmp>
+        <xmp>
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es5,es6,es7&flags=gated"></script>
+        </xmp>
 
         <h3>Card Validation</h3>
 
