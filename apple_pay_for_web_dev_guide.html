@@ -1,0 +1,873 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clearent JavaScript SDK by Clearent</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Clearent JavaScript SDK</h1>
+        <p>Apple Pay For Web</p>
+
+        <menu>
+          <a href="index.html">Overview</a>
+          <a href="security.html">Security Considerations</a>
+          <a href="global.html">Configuration</a>
+          <a href="branding.html">Styling / Branding</a>
+          <a class="active" href="digitalwallet.html">Digital Wallets</a>
+          <a href="examples.html">Examples</a>
+        </menu>
+
+      </header>
+      <section>
+
+        <p></p>
+
+        <h3>Apple Pay For Web Overview</h3>
+
+        <p>Apple Pay for Web allows customers to securely make payments using Apple Pay on their Apple device’s Safari browser. This guide highlights the minimum changes needed for Apple Pay.</p>
+
+        <h4>Audience</h4>
+
+        <p>This guide is intended for developers/solutions that plan to, or already are, integrated with the javascript-sdk.</p>
+
+        <h4>Prerequisites</h4>
+
+        <p>The following are required before you incorporate Apple Pay on your website:</p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Ensure that the macOS version is
+        10.12.1+ or iOS version is 10.1+ for the Apple Pay payment method. The mac OS
+        supported are Sierra and later.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>This payment method is supported
+        only on Apple device’s browser such as Safari.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Ensure that your server is set up
+        to allow Apple Pay.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Serve your application over HTTPS
+        both in development and in production.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Your domain must have a valid SSL
+        certificate.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Your server must support the
+        Transport Layer Security (TLS) protocol version 1.2 or later, and one of the
+        cipher suites. Refer to the related links for the list of cipher suites.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Refer to <span style='color:#0070C0'>Apple
+        Server Configurations </span>for setting up your production environment.</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>It is recommended that integrators
+        implement the manual card entry of the JavaScript SDK solution as a fallback
+        measure.</span></p>
+
+        <h4>Supported and Unsupported Payment Methods</h4>
+
+        <p class=MsoNormal style='margin-top:6.0pt'><span style='line-height:106%'>Collect
+        payment and address information from customers who use Apple Pay. The supported
+        cards and merchant capabilities are as follows:</span></p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Supported Cards – Visa,
+        MasterCard, American Express, and Discover</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Merchant Capabilities – Credit
+        Cards, Debit Cards (with either the Visa or Mastercard logo)</span></p>
+
+        <p class=MsoNormal style='margin-top:6.0pt;line-height:150%'><span
+        style='line-height:150%'>The unsupported methods are:</span></p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>In-App Payments</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Recurring Payments</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Split Shipment</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='line-height:150%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:150%'>Voids/Refunds through Apple Pay</span></p>
+
+        <h4>Getting Started</h4>
+
+        <p class=MsoNormal style='margin-top:6.0pt'><span style='line-height:106%'><img
+        width=417 height=181 id="Picture 5"
+        src="images/image001.jpg"></span></p>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:8.0pt;
+        margin-left:1.0in;text-indent:.5in'><b><span style='line-height:106%'>Figure 1</span></b><span
+        style='line-height:106%'> Final Transaction Cost</span></p>
+
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><img width=314
+        height=182 id="Picture 6" src="images/image002.jpg"></p>
+
+        <p class=MsoNormal style='margin-top:6.0pt;text-indent:.5in'><span
+        style='line-height:106%'>                        <b>      </b></span><b><span
+        style='line-height:106%'>Figure 2</span></b><span style='line-height:106%'>
+        Final Transaction Cost</span></p>
+
+        <p class=MsoNormal style='margin-top:6.0pt'><b><span style='line-height:106%'>Note</span></b></p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:107%;
+        text-autospace:ideograph-numeric ideograph-other'><span style='line-height:
+        107%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:107%'>The merchant is responsible for
+        ensuring the transaction worked as expected.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:12.0pt;margin-left:.25in;text-indent:-.25in;line-height:107%;
+        text-autospace:ideograph-numeric ideograph-other'><span style='line-height:
+        107%;font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span><span style='line-height:107%'>Apple’s&nbsp;documentation for
+        Apple Pay on the Web describes the process of&nbsp;“merchant validation”, which
+        Clearent manages behind the scenes.&nbsp;You don’t need to create an Apple
+        Merchant ID, CSR, etc., as described&nbsp;in their documentation and should
+        instead just follow the steps below.</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;line-height:107%;text-autospace:ideograph-numeric ideograph-other'><span
+        style='line-height:107%'>&nbsp;</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'><span style='font-size:11.0pt'>1.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Share
+        with Clearent the domain(s) that will be used for Apple Pay.</p>
+
+        <p class=MsoNormal style='margin-bottom:6.0pt;line-height:normal'><b>Note</b></p>
+
+        <p class=MsoNormal style='margin-left:.25in;line-height:normal'>Refer to the
+        Related Links for the list of Apple IP Addresses and domain names for merchant
+        validation in production and testing.</p>
+
+        <p class=MsoListParagraph style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+        6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;text-autospace:
+        ideograph-numeric ideograph-other'><span style='font-size:11.0pt'>2.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Host
+        the verification file (<b>provided by Clearent</b>) on the following URL,
+        replacing [DOMAIN_NAME] with the appropriate domain.<br>
+        <b>Example: </b></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;line-height:150%'><a
+        href="https://[DOMAIN_NAME]/.well-known/apple-developer-merchantid-domain-association"><span
+        style='line-height:150%'>https://[DOMAIN_NAME]/.well-known/apple-developer-merchantid-domain-association</span></a></p>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;
+        margin-left:0in;line-height:150%'><b><span style='line-height:150%'>Note </span></b></p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;line-height:normal'>This URL must be
+        publicly accessible to allow Apple to verify the file. Refer to the Related
+        Links section to see the list of Apple IP addresses.</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;line-height:normal'>&nbsp;</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'><span style='font-size:11.0pt'>3.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Once
+        the provided file is hosted at the correct URL, send a notification to Clearent
+        to request Apple to register and verify the domain.</p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'><span style='font-size:11.0pt'>4.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>Clearent
+        will send confirmation once the domain has been verified.</p>
+
+        <h4>Setting Up Apple Pay</h4>
+
+        <h5>Placing the Apple Pay button on your page</h5>
+
+        <p class=MsoListParagraph style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+        6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;text-autospace:
+        ideograph-numeric ideograph-other'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>Include this&nbsp;in your page to create a container that will be used
+        for the&nbsp;Apple Pay button:</p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 width=600
+         style='width:6.25in;margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=600 valign=top style='width:6.25in;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>&lt;button
+          id=&quot;apple-pay-button&quot; class=&quot;&quot;&gt;&lt;/button&gt;</p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;
+        margin-left:0in;line-height:150%'><b><span style='line-height:150%'>Note</span></b></p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-left:.25in;line-height:normal'>You
+        will get a default style. Apple provides several types of buttons so that you
+        can choose the button type that fits best with the terminology and flow of your
+        purchase or payment experience. Refer to the following link for Apple styling
+        guidelines:</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;line-height:normal'>&nbsp;</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in;line-height:normal'><a
+        href="https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/buttons-and-marks/#button-types">https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/buttons-and-marks/#button-types</a></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in'><span
+        style='line-height:106%'>&nbsp;</span></p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-left:.25in'><span
+        style='line-height:106%'>Refer to the following link for full payment sheet
+        objects:</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-left:.25in'><a
+        href="https://applepaydemo.apple.com/"><span style='line-height:106%'>https://applepaydemo.apple.com/</span></a></p>
+
+        <p class=MsoNormal><b><span style='line-height:106%'>Note</span></b></p>
+
+        <p class=MsoNormal style='text-indent:.25in'><span style='line-height:106%'>You
+        don’t have to provide the full request. An example of a minimum request is:</span></p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 width=600
+         style='width:6.25in;margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=600 valign=top style='width:6.25in;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>{</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;total&quot;: {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>       
+          &quot;label&quot;: &quot;AAA&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>       
+          &quot;type&quot;: &quot;final&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>       
+          &quot;amount&quot;: &quot;1.99&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    }</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>}</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>Check if Apple Pay is available in the user’s browser by using the
+        function.  This enables you to determine when to show the Apply Pay button.</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>&nbsp;</p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+         style='margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=600 valign=top style='width:6.25in;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+          margin-bottom:6.0pt;margin-left:0in;line-height:150%;text-autospace:ideograph-numeric ideograph-other'><span
+          style='line-height:150%'>ClearentSDK.applePayAvailable()</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;
+        margin-left:0in;line-height:150%'><span style='line-height:150%'>&nbsp;</span></p>
+
+        <h4>Configuring the onClick event </h4>
+
+        <p class=MsoListParagraph style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+        6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;text-autospace:
+        ideograph-numeric ideograph-other'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>To start up the Apple Pay session with your payment sheet object,
+        configure the onClick event.</p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+         style='margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=599 valign=top style='width:449.5pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>if(ClearentSDK.applePayAvailable()) {</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  let
+          applyPaymentSheet = YOUR_PAYMENT_SHEET</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          jq2(&quot;#apple-pay-button&quot;).on(&quot;click&quot;, () =&gt; {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>      const
+          session = ClearentSDK.buildApplePaySession(applyPaymentSheet);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;text-indent:.5in;line-height:
+          normal;text-autospace:ideograph-numeric ideograph-other'><span
+          style='color:black'>// optional dynamic handling events can be added here
+          (see below for details)</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          session.begin()</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  });</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>}</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoListParagraph style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+        6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;text-autospace:
+        ideograph-numeric ideograph-other'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>The SDK handles the Apple Pay token and converts it to the JWT you
+        currently handle. Otherwise, you will get an error. <a name="_Hlk105088100">If
+        you have not already integrated the JavaScript SDK, follow the steps </a><a
+        href="https://clearent.github.io/javascript-sdk/">here</a> and then follow the
+        steps in this document. Else, there should be no extra work at this point.</p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+         style='margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=599 valign=top style='width:449.5pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>function ClearentTokenSuccess(raw, json) {</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(&quot;ClearentTokenSuccess&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(raw);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(json);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(&quot;-----------------------------------------------&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(&quot;now you can send the token to your server&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(&quot;to complete the transaction via mobile-gateway&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(&quot;-----------------------------------------------&quot;)</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>}</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>function
+          ClearentTokenError(raw, json) {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(&quot;ClearentTokenError&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(raw);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          console.log(json);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>}</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>Send the Clearent token to your server using the secure transmission you
+        use elsewhere (HTTPS and the authentication solution).</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>From your server, construct the payment (see Mobile Gateway
+        documentation for more details). Share with Clearent the secret API key from
+        your server, not from your website.</p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;text-indent:-.25in;line-height:normal;
+        text-autospace:ideograph-numeric ideograph-other'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>When you get a successful token response, return the response to the JavaScript
+        to be handled appropriately.</p>
+
+        <h4>Testing</h4>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+        margin-left:0in;text-autospace:none'><span style='line-height:106%'>Apple
+        requires an offline test implementation of Apple&nbsp;Pay for apps, websites,
+        and point-of-sale systems. The link </span><a
+        href="https://developer.apple.com/apple-pay/sandbox-testing/"><span
+        style='line-height:106%'>here</span></a><span style='line-height:106%'>
+        provides an overview of the sandbox environment, details on how to get started,
+        and general support for testing your Apple&nbsp;Pay transactions.</span></p>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:0in;
+        margin-left:0in;text-autospace:none'><span style='line-height:106%'>&nbsp;</span></p>
+
+        <h4>Dynamic Updates</h4>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:0in;margin-left:.25in;text-indent:-.25in;line-height:107%;
+        text-autospace:none'><span style='line-height:107%;color:black'>1.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+        style='line-height:107%'>The Apple Pay session has been exposed for you to
+        calculate your final transaction cost depending on user payment method, billing
+        address, shipping address, or shipping method. To modify the payment sheet,
+        implement the optional handlers </span><a
+        href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778013-onpaymentmethodselected"><span
+        style='line-height:107%;color:#0B4CB4'>onpaymentmethodselected</span></a><span
+        style='line-height:107%;color:#262626'>, </span><a
+        href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778028-onshippingmethodselected"><span
+        style='line-height:107%;color:#0B4CB4'>onshippingmethodselected</span></a><span
+        style='line-height:107%;color:#262626'> </span><span style='line-height:107%;
+        color:black'>and </span><a
+        href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778009-onshippingcontactselected"><span
+        style='line-height:107%;color:#0B4CB4'>onshippingcontactselected</span></a><u><span
+        style='line-height:107%;color:#0B4CB4'>.</span></u><span style='line-height:
+        107%;color:black'> There is also the </span><a
+        href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778029-oncancel"><span
+        style='line-height:107%'>oncancel</span></a><span style='line-height:107%;
+        color:black'> optional handler that is triggered when the user clicks the
+        “cancel” button. This is implemented similarly to the other handlers. Refer to
+        the Apple documentation for more details on the methods.</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:0in;margin-left:.25in;line-height:107%;text-autospace:none'><span
+        style='line-height:107%;color:black'>&nbsp;</span></p>
+
+        <p>Example</p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+         style='margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=599 valign=top style='width:449.5pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>jq2(&quot;#apple-pay-button&quot;).on(&quot;click&quot;,
+          () =&gt; {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    const session =
+          ClearentSDK.buildApplePaySession(request);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'> </span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><i><span style='color:black'>  </span></i><b><span style='color:black'>session.onshippingmethodselected</span></b><span
+          style='color:black'> = function (event) {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    selectedShippingMethod = event.shippingMethod</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    const newTotalAmount = calculateTotal….</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    const newLineItems = [update line items…]</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    <b>session.completeShippingMethodSelection</b>(</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>      {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>        newTotal: {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>          label: request.total.label,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>          amount: newTotalAmount,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>          type: final }, // newTotal is
+          required</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>        newLineItems,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>      }</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    )</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>  }</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>&nbsp;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>   <b>session.oncancel</b> = function(event)
+          {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>       …add logic for when session is
+          cancelled by user</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>}</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><b><span style='color:black'>…. Other optional handlers can be added
+          here</span></b></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>    session.begin()</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          none'><span style='color:black'>});</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoNormal style='margin-top:12.0pt;text-indent:.25in;text-autospace:
+        none'><b><span style='line-height:106%'>Example (d<span style='color:black'>etailed
+        payment request)</span></span></b></p>
+
+        <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0
+         style='margin-left:.25in;background:#D9D9D9;border-collapse:collapse;
+         border:none'>
+         <tr>
+          <td width=599 valign=top style='width:449.5pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>let applyPaymentSheet = {</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          shippingMethods: [</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;label&quot;: &quot;Free Standard Shipping&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;amount&quot;: &quot;0.00&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;detail&quot;: &quot;Arrives in 5-7 days&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;identifier&quot;: &quot;standardShipping&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    },</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;label&quot;: &quot;Express Shipping&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;amount&quot;: &quot;1.00&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;detail&quot;: &quot;Arrives in 2-3 days&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;identifier&quot;: &quot;expressShipping&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    }</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  ],</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          &quot;shippingType&quot;: &quot;shipping&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          &quot;requiredBillingContactFields&quot;: [</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;postalAddress&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;name&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  ],</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          &quot;requiredShippingContactFields&quot;: [</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;postalAddress&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    
+          &quot;name&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    
+          &quot;phone&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;email&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  ],</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          &quot;lineItems&quot;: [</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;label&quot;: &quot;Sales Tax&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;amount&quot;: &quot;0.00&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    },</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;label&quot;: &quot;Shipping&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>     
+          &quot;amount&quot;: &quot;0.00&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>    }</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  ],</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'> 
+          &quot;total&quot;: {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;label&quot;: &quot;AAA&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;amount&quot;: &quot;1.00&quot;,</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>   
+          &quot;type&quot;: &quot;final&quot;</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>  }</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><span style='color:black'>}</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <span style='font-size:10.0pt;line-height:106%;font-family:"Arial",sans-serif'><br
+        clear=all style='page-break-before:always'>
+        </span>
+
+        <p class=MsoNormal><span style='line-height:106%;color:#2F5496'>&nbsp;</span></p>
+
+        <h4>Appendix A – Related Links</h4>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;
+        margin-left:0in'><span style='line-height:106%'>Refer to the following table
+        for links to helpful resources:</span></p>
+
+        <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+         style='border-collapse:collapse;border:none'>
+         <tr>
+          <td width=168 valign=top style='width:125.75pt;border:solid windowtext 1.0pt;
+          background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><b>Description</b></p>
+          </td>
+          <td width=456 valign=top style='width:341.75pt;border:solid windowtext 1.0pt;
+          border-left:none;background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt'>
+          <p Links</p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Clearent
+          JavaScript SDK</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p style='margin:0in;background:white;text-autospace:ideograph-numeric ideograph-other'><a
+          href="https://clearent.github.io/javascript-sdk/"><span style='font-size:
+          10.0pt;font-family:"Arial",sans-serif'>https://clearent.github.io/javascript-sdk/</span></a></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Apple
+          Developer Documentation</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="https://developer.apple.com/documentation/apple_pay_on_the_web">https://developer.apple.com/documentation/apple_pay_on_the_web</a></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Clearent
+          Apple Pay Demo</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="https://gateway-sb.clearent.net/js-sdk/applepaydemo.html">https://gateway-sb.clearent.net/js-sdk/applepaydemo.html</a><span
+          class=MsoHyperlink> (open in Safari)</span></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Apple
+          IP Addresses</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p style='margin:0in;background:white;text-autospace:ideograph-numeric ideograph-other'><span
+          style='font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp;</span></p>
+          <p style='margin:0in;background:white;text-autospace:ideograph-numeric ideograph-other'><a
+          href="https://developer.apple.com/documentation/apple_pay_on_the_web/setting_up_your_server"><span
+          style='font-size:10.0pt;font-family:"Arial",sans-serif'>https://developer.apple.com/documentation/apple_pay_on_the_web/setting_up_your_server</span></a></p>
+          <p style='margin:0in;background:white;text-autospace:ideograph-numeric ideograph-other'><span
+          style='font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp;</span></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Apple
+          Styling Guidelines</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/buttons-and-marks/#button-types">https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/buttons-and-marks/#button-types</a></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'>&nbsp;</p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Apple
+          Server Configurations</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="https://developer.apple.com/documentation/apple_pay_on_the_web/setting_up_your_server">Setting
+          Up Your Server | Apple Developer Documentation</a></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Clearent
+          Mobile Gateway Documentation</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="http://api.clearent.com/swagger.html#!/Quest_API_Integration/Mobile_Transactions_using_SDKs/Mobile_Transactions">http://api.clearent.com/swagger.html#!/Quest_API_Integration/Mobile_Transactions_using_SDKs/Mobile_Transactions</a></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Clearent
+          Example Code</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgateway-sb.clearent.net%2Fjs-sdk%2Findex.html%23demo05&amp;data=04%7C01%7Cmagrawal%40clearent.com%7C970de3b6253144519d9908d94aed4d3e%7C6b87202e574b4dd98b17d6d221f17ff2%7C0%7C0%7C637623205334524734%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=YPRLC%2BZ2VDGQpDkPSAR9eteHTy17U8uh9B8obpTjtqA%3D&amp;reserved=0">https://gateway-sb.clearent.net/js-sdk/index.html#demo05</a></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=168 style='width:125.75pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal;text-autospace:ideograph-numeric ideograph-other'>Apple
+          Sandbox Environment</p>
+          </td>
+          <td width=456 style='width:341.75pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+          ideograph-numeric ideograph-other'><a
+          href="https://developer.apple.com/apple-pay/sandbox-testing/">Apple Pay -
+          Sandbox Testing - Apple Developer</a></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoNormal><span style='line-height:106%'>&nbsp;</span></p>
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Clearent">Clearent</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+
+  </body>
+</html>
