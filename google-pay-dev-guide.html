@@ -1,0 +1,481 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clearent JavaScript SDK by Clearent</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Clearent JavaScript SDK</h1>
+        <p>Google Pay</p>
+
+        <menu>
+          <a href="index.html">Overview</a>
+          <a href="security.html">Security Considerations</a>
+          <a href="global.html">Configuration</a>
+          <a href="branding.html">Styling / Branding</a>
+          <a class="active" href="digitalwallet.html">Digital Wallets</a>
+          <a href="examples.html">Examples</a>
+        </menu>
+
+      </header>
+      <section>
+
+        <p></p>
+
+        <h3>Google Pay Overview</h3>
+
+        <p >Google Pay allows customers to securely make payments using Google Pay from an internet browser using their Google Wallet. This guide highlights the minimum changes needed to support Google Pay.</p>
+
+        <h4>Audience</h4>
+
+        <p>This guide is intended for developers/solutions that plan to, or already are, integrated with the javascript-sdk.</p>
+
+        <h4>Prerequisites</h4>
+
+        <p>The following are required before you incorporate Google Pay on your website:</p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Serve an HTTPS webpage with a TLS domain-validated certificate.</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Use one of the following supported web browsers: Google Chrome,
+        Mozilla Firefox, Apple Safari, Microsoft Edge, Opera, or UCWeb UC Browser.</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Add a payment method to your Google account by referring <a
+        href="https://support.google.com/pay/answer/7625139">here</a>.</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Adhere<span style='color:#202124'> to our&nbsp;Google Pay API
+        Acceptable Use Policy by referring </span><a
+        href="https://payments.developers.google.com/terms/aup">here</a><span
+        style='color:#202124'>.</span></p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Implement Clearent’s manual card entry solution using the <a
+        href="https://clearent.github.io/javascript-sdk/">JavaScript SDK</a>.</p>
+
+        <h4>Supported and Unsupported Payment Methods</h4>
+
+        <p class=MsoNormal style='margin-top:6.0pt'>Collect payment and address
+        information from customers who use Google Pay. The supported cards and merchant
+        capabilities are as follows:</p>
+
+        <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Supported Cards – Visa, MasterCard, American Express, and
+        Discover</p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in;line-height:150%'><span
+        style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span></span>Merchant Capabilities – Credit Cards, Debit Cards (with either
+        the Visa or Mastercard logo)</p>
+
+        <p class=MsoNormal style='margin-top:6.0pt'><b>Note</b></p>
+
+        <p class=MsoListParagraph style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+        12.0pt;margin-left:.25in'>Google’s&nbsp;documentation says to apply for production
+        access so you can obtain a Merchant ID but Clearent already has one and will
+        handle this for you.</p>
+
+        <h3>Getting Started</h3>
+
+        <h4>Placing the Google Pay button on your page</h4>
+
+        <p><span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Include
+        this&nbsp;in your page to create a container that will be used for
+        the&nbsp;Google Pay button:</p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=600
+         style='width:6.25in;margin-left:.25in;border-collapse:collapse'>
+         <tr>
+          <td width=600 valign=top style='width:6.25in;background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt'><pre
+          style='background:#2B2B2B'><span style='font-family:"Arial",sans-serif;
+          color:#E8BF6A'>&lt;div </span><span style='font-family:"Arial",sans-serif;
+          color:#BABABA'>id</span><span style='font-family:"Arial",sans-serif;
+          color:#A5C261'>=&quot;google-pay-container&quot; </span><span
+          style='font-family:"Arial",sans-serif;color:#BABABA'>class</span><span
+          style='font-family:"Arial",sans-serif;color:#A5C261'>=&quot;&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#E8BF6A'>&gt;&lt;/div&gt;</span></pre></td>
+         </tr>
+        </table>
+
+        <p style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:0in;line-height:150%'><b>Note</b></p>
+
+        <p style='margin-top:6.0pt;margin-right:0in;
+        margin-bottom:6.0pt;margin-left:.25in;line-height:normal'>You will get a
+        default style. Google provides several types of buttons so that you can choose
+        the button type that fits best with the terminology and flow of your purchase
+        or payment experience. Refer to the following link for Google styling
+        guidelines:</p>
+
+        <p  style='margin-left:.25in'><a
+        href="https://developers.google.com/pay/api/web/guides/brand-guidelines">https://developers.google.com/pay/api/web/guides/brand-guidelines</a></p>
+
+        <p style='margin-left:.25in'>For Best UX practices:</p>
+
+        <p style='margin-left:.25in'><a
+        href="https://developers.google.com/pay/api/web/guides/ux-best-practices">https://developers.google.com/pay/api/web/guides/ux-best-practices</a></p>
+
+        <p style='margin-left:.25in'>See the Google
+        tutorial for more details about the request:</p>
+
+        <p  style='margin-left:.25in'><a
+        href="https://developers.google.com/pay/api/web/guides/tutorial"><span
+        style='letter-spacing:-.3pt'>https://developers.google.com/pay/api/web/guides/tutorial</span></a></p>
+
+        <p ><b>Payment Request</b></p>
+
+        <pstyle='text-indent:.25in'>An example of a minimum request
+        is:</p>
+
+        <table  border=0 cellspacing=0 cellpadding=0 width=600
+         style='width:6.25in;margin-left:.25in;border-collapse:collapse'>
+         <tr>
+          <td width=600 valign=top style='width:6.25in;background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt'><pre
+          style='background:#2B2B2B'><span style='font-family:"Arial",sans-serif;
+          color:#CC7832'>let </span><span style='font-family:"Arial",sans-serif;
+          color:#A9B7C6'>request = {<br>
+            </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;total&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: {<br>
+                </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;label&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: </span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;Sasha's Mustard Shop&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>,<br>
+                </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;amount&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: </span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;0.01&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>,<br>
+                </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;type&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: </span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;final&quot;<br>
+            </span><span style='font-family:"Arial",sans-serif;color:#A9B7C6'>}<br>
+        }</span></pre>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
+          </td>
+         </tr>
+        </table>
+
+</br>
+        <p></span>Check if
+        Google Pay is available in the user’s browser by using the following function. 
+        This enables you to determine when to show the Google Pay button.</p>
+
+        <table border=0 cellspacing=0 cellpadding=0 align=left
+         width=600 style='width:6.25in;border-collapse:collapse;margin-left:6.75pt;
+         margin-right:6.75pt'>
+         <tr style='height:13.05pt'>
+          <td width=600 valign=top style='width:6.25in;background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt;
+          height:13.05pt'>
+          <p  style='margin-top:6.0pt;margin-right:0in;
+          margin-bottom:6.0pt;margin-left:0in;line-height:150%'><span style='line-height:
+          150%;color:black'>ClearentSDK.googlePayAvailable()</span></p>
+          </td>
+         </tr>
+        </table>
+      </br>
+
+      </br>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;
+        margin-left:0in;line-height:150%'>&nbsp;</p>
+
+        <h2>Configuring the onClick event</h2>
+
+        <p class=MsoListParagraph style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+        6.0pt;margin-left:.25in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>To start up the Google Pay Session with your request object, configure
+        the onClick event.</p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=599
+         style='width:449.5pt;margin-left:.25in;border-collapse:collapse'>
+         <tr>
+          <td width=599 valign=top style='width:449.5pt;background:#D9D9D9;padding:
+          0in 5.4pt 0in 5.4pt'><pre style='background:#2B2B2B'><b><i><span
+          style='font-family:"Arial",sans-serif;color:#9876AA'>jq2</span></i></b><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>(</span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;#payment-button&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>).</span><span
+          style='font-family:"Arial",sans-serif;color:#FFC66D'>on</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>(</span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;click&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>, function </span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>() {<br>
+            </span><b><i><span style='font-family:"Arial",sans-serif;color:#9876AA'>ClearentSDK</span></i></b><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>.getPaymentToken()</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>;<br>
+          </span><span style='font-family:"Arial",sans-serif;color:#A9B7C6'>})</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>;<br>
+          <br>
+        function </span><span style='font-family:"Arial",sans-serif;color:#FFC66D'>onGooglePayLoaded</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>() {<br>
+            </span><span style='font-family:"Arial",sans-serif;color:#CC7832'>if</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>(</span><b><i><span
+          style='font-family:"Arial",sans-serif;color:#9876AA'>ClearentSDK</span></i></b><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>.</span><span
+          style='font-family:"Arial",sans-serif;color:#FFC66D'>googlePayAvailable</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>()) {<br>
+                </span><span style='font-family:"Arial",sans-serif;color:#CC7832'>let </span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>request = {<br>
+                    </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;total&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: {<br>
+                        </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;label&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: </span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;Sasha's Mustard Shop&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>,<br>
+                        </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;amount&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: </span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;0.01&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>,<br>
+                        </span><span style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;type&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>: </span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;final&quot;<br>
+                    </span><span style='font-family:"Arial",sans-serif;color:#A9B7C6'>}<br>
+                }<br>
+                </span><span style='font-family:"Arial",sans-serif;color:#CC7832'>let </span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>session = </span><b><i><span
+          style='font-family:"Arial",sans-serif;color:#9876AA'>ClearentSDK</span></i></b><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>.</span><span
+          style='font-family:"Arial",sans-serif;color:#FFC66D'>buildGoogleSession</span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>(</span><span
+          style='font-family:"Arial",sans-serif;color:#6A8759'>&quot;google-pay-container&quot;</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>, </span><span
+          style='font-family:"Arial",sans-serif;color:#A9B7C6'>request)</span><span
+          style='font-family:"Arial",sans-serif;color:#CC7832'>;<br>
+            </span><span style='font-family:"Arial",sans-serif;color:#A9B7C6'>}<br>
+        }</span></pre>
+          <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
+          0in;margin-left:.25in;line-height:normal'>&nbsp;</p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoListParagraph style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+        8.0pt;margin-left:.25in'>&nbsp;</p>
+
+        <p class=MsoNormal style='page-break-before:always'>&nbsp;</p>
+
+        <p class=MsoListParagraph style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+        8.0pt;margin-left:.25in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>The SDK handles the Google Pay token and converts it to the JWT you
+        currently handle. Otherwise, you will get an error. If you have not already
+        integrated the JavaScript SDK, follow the steps <a
+        href="https://clearent.github.io/javascript-sdk/">here</a> and then follow the
+        steps in this document. Else, there should be no extra work at this point.</p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=599
+         style='width:449.5pt;margin-left:.25in;border-collapse:collapse'>
+         <tr>
+          <td width=599 valign=top style='width:449.5pt;background:#D9D9D9;padding:
+          0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><a
+          name="_Hlk75425352">function ClearentTokenSuccess(raw, json) {</a></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(&quot;ClearentTokenSuccess&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(raw);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(json);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>   
+          console.log(&quot;-----------------------------------------------&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(&quot;now you can send the token to your
+          server&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(&quot;to complete the transaction via mobile-gateway&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>   
+          console.log(&quot;-----------------------------------------------&quot;)</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>}</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>function ClearentTokenError(raw, json) {</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(&quot;ClearentTokenError&quot;);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(raw);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>    console.log(json);</span></p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span
+          style='color:black'>}</span></p>
+          </td>
+         </tr>
+        </table>
+
+        <p style='margin-top:12.0pt;margin-right:0in;
+        margin-bottom:2.0pt;margin-left:.25in;text-indent:-.25in'>3.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>Send the
+        Clearent token to your server using the secure transmission you use elsewhere
+        (HTTPS and the authentication solution).</p>
+
+        <p class=MsoListParagraphCxSpMiddle style='margin-top:12.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in'>4.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>From your
+        server, construct the payment (see Mobile Gateway documentation for more
+        details). Share with Clearent the secret API key from your server, not from
+        your website.</p>
+
+        <p class=MsoListParagraphCxSpLast style='margin-top:12.0pt;margin-right:0in;
+        margin-bottom:8.0pt;margin-left:.25in;text-indent:-.25in'>5.<span
+        style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>When you
+        get a successful token response, return the response to the JavaScript to be
+        handled appropriately.</p>
+
+        <p class=MsoNormal><a name="_Toc78200476"></a><a name="_Toc105079722"></a><a
+        name="_Appendix_A-_Related"></a><b><span style='font-size:14.0pt;line-height:
+        106%;color:#F44E27'>&nbsp;</span></b></p>
+
+        <h2><b><span style='font-size:14.0pt;line-height:106%;font-family:"Arial",sans-serif;
+        color:#F44E27'><span style='color:windowtext'>Appendix A – Related Links</span></span></b></h2>
+
+        <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;
+        margin-left:0in'>Refer to the following table for links to helpful resources:</p>
+
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=654
+         style='border-collapse:collapse'>
+         <tr>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><b>Description</b></p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border:solid black 1.0pt;
+          border-left:none;background:#D9D9D9;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><b><span
+          style='color:black'>Links</span></b></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'>Clearent JavaScript SDK</p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border-top:none;border-left:none;
+          border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+          0in;background:white'><span style='color:black'><a
+          href="https://clearent.github.io/javascript-sdk/"><span style='font-size:
+          10.0pt;font-family:"Arial",sans-serif'>https://clearent.github.io/javascript-sdk/</span></a></span></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'>Google Developer Documentation </p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border-top:none;border-left:none;
+          border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+          0in;background:white'><span style='color:black'><a
+          href="https://developers.google.com/pay/api/web/overview"><span
+          style='font-size:10.0pt;font-family:"Arial",sans-serif'>https://developers.google.com/pay/api/web/overview</span></a></span></p>
+          <p style='margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+          0in;background:white'><span style='color:black'><a
+          href="https://developers.google.com/pay/api/web/guides/tutorial"><span
+          style='font-size:10.0pt;font-family:"Arial",sans-serif;letter-spacing:-.3pt'>https://developers.google.com/pay/api/web/guides/tutorial</span></a></span><u><span
+          style='font-size:10.0pt;font-family:"Arial",sans-serif;color:#333333;
+          letter-spacing:-.3pt'> </span></u></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'>Clearent Google Pay Demo</p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border-top:none;border-left:none;
+          border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'><a
+          href="https://gateway-sb.clearent.net/js-sdk/googlepaydemo.html">https://gateway-sb.clearent.net/js-sdk/googlepaydemo.html</a><span
+          class=MsoHyperlink><span style='text-decoration:none'> </span></span><span
+          class=MsoHyperlink><span style='color:windowtext;text-decoration:none'>(open
+          in Safari)</span></span></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'>Clearent Mobile Gateway
+          Documentation</p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border-top:none;border-left:none;
+          border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'><a
+          href="http://api.clearent.com/swagger.html#!/Quest_API_Integration/Mobile_Transactions_using_SDKs/Mobile_Transactions">http://api.clearent.com/swagger.html#!/Quest_API_Integration/Mobile_Transactions_using_SDKs/Mobile_Transactions</a></p>
+          </td>
+         </tr>
+         <tr>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'>Clearent Example Code </p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border-top:none;border-left:none;
+          border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'><a
+          href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgateway-sb.clearent.net%2Fjs-sdk%2Findex.html%23demo05&amp;data=04|01|magrawal%40clearent.com|970de3b6253144519d9908d94aed4d3e|6b87202e574b4dd98b17d6d221f17ff2|0|0|637623205334524734|Unknown|TWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D|1000&amp;sdata=YPRLC%2BZ2VDGQpDkPSAR9eteHTy17U8uh9B8obpTjtqA%3D&amp;reserved=0">https://gateway-sb.clearent.net/js-sdk/index.html#demo05</a></p>
+          </td>
+         </tr>
+         <tr style='height:22.9pt'>
+          <td width=174 valign=top style='width:130.25pt;border:solid black 1.0pt;
+          border-top:none;padding:0in 5.4pt 0in 5.4pt;height:22.9pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'>Add Payment Method to Google
+          Account</p>
+          </td>
+          <td width=480 valign=top style='width:5.0in;border-top:none;border-left:none;
+          border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0in 5.4pt 0in 5.4pt;
+          height:22.9pt'>
+          <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+          6.0pt;margin-left:0in;line-height:normal'><a
+          href="https://support.google.com/pay/answer/7625139">https://support.google.com/pay/answer/7625139</a></p>
+          </td>
+         </tr>
+        </table>
+
+        <p class=MsoNormal>&nbsp;</p>
+
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Clearent">Clearent</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+
+  </body>
+</html>
