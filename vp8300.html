@@ -33,11 +33,33 @@
 
         <p></p>
 
-        <h3>IDTech VP8300 Overview</h3>
+        <h2>IDTech VP8300 Overview</h2>
 
-        <p>The sdk supports the use of an IDTech VP8300 card reader. The reader supports 3 credit card interactions - contactless, chip, and swipe.</p>
+        <p>The sdk supports the use of an IDTech VP8300 card reader. The reader supports 3 credit card interactions - contactless, chip, and swipe.
+        The reader requires a USB connection so it can communicate with our SDK using keyboard emulation.</p>
 
-        <h4>Initialize the sdk</h4>
+        <img src="images/vp8300pic.png" alt="VP8300 reader">
+
+        <h3>Audience</h3>
+
+        <p>This guide is intended for developers/solutions that plan to, or already are, integrated with the javascript-sdk.</p>
+
+        <h3>Prerequisites</h3>
+
+        <p>The following are required before you begin using the VP8300:</p>
+
+        <p>Use a computer with Windows or macOS (Macbook) and a USB port.</p>
+
+        <p >Serve your application over HTTPS
+        both in development and in production.</p>
+
+        <p>Your domain must have a valid SSL certificate.</p>
+
+        <p>It is recommended that integrators implement the manual card entry of the JavaScript SDK solution as a fallback
+        measure.</p>
+
+        <h3>Initialize the sdk</h3>
+        <p>In order to support the reader you pass to our init function the enableReader flag set to true and the deviceType as 'IDTECH'</p>
 
         <pre><code>
           ClearentSDK.init({
@@ -48,1182 +70,619 @@
           });
         </code></pre>
 
+        <h4>Connect reader to computer</h4>
+        <p>Plug the reader into a USB port on your computer. You might need an adapter depending on the age of the computer.</p>
+
         <h4>Select the Reader button</h4>
 
         <p>By selecting the reader button you are placing focus on the 'Card Number' area. This is important since the reader will produce keyboard emulated data and place it in this location.</p>
 
         <img src="images/swipevp8300.png" alt="VP8300 swipe mode">
 
-        <p><b><span style="line-height:106%">Note</span></b></p>
-        <p>Because the solution uses javascript's focus ability if you run into any issues you can select the reader again to reset.</p>
 
-        <h4>Select the Submit button</h4>
-        <p>When you select the submit button the keyboard emulated data will be sent to Clearent for processing. The success and error functions you have
+                <p><b><span style="line-height:106%">Note</span></b></p>
+                <p>At this point you want to make sure you are not presenting the card to the reader. The solution uses javascript's focus ability
+                  and if you present the card too early the keyboard emulation will begin but not have any location to drop the data into. If this does happen you can select the Clear option to reset.</p>
+
+
+
+        <h3>Present Card to Reader</h3>
+
+        <p>You should now see the message 'Ready for card reader'. It is time to present the card or phone to the reader.</p>
+
+        <img src="images/readyforcard.png" alt="Receiving Card Data">
+
+        <h3>Select the Submit button</h3>
+        <p>Once the card has been read you should see masked information. When you select the submit button the keyboard emulated data will be sent to Clearent for processing. The success and error functions you have
         implemented will be called when the response comes back. </p>
 
-        <h4>Errors</h4>
-        <p>The majority of errors returned cannot be remedied and would require the card to be manually entered.</p>
 
-        <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=631
+                <img src="images/readytosubmit.png" alt="Receiving Card Data">
+
+       <p><b><span style="line-height:106%">Note</span></b></p>
+       <p>At this point you also have the option to select Clear. This will reset the form allowing you to reinitialize and try another transaction.</p>
+
+
+        <h3>Unsuccessful Responses</h3>
+        <p>The majority of errors returned cannot be remedied but are listed here to document the IDTech messages and ours. We return an error object to convey
+        the details but the action taken when you see this would be to try once more, and if the issues persists, try manually entering the card number, or request a different card or payment method. </p>
+
+<h3>Example of an Error Response<h3>
+  <p></P>
+    <pre><code>
+      {
+        "code": "400",
+        "status": "fail",
+        "exchange-id": "ID-clearent-mobile-jwt-2-729b876d-60b4-42bc-90cb-c394d5584a1e",
+        "payload": {
+          "error": {
+            "error-message": "Card Rejected",
+            "result-code": "mobile-jwt-idtech-contact-response-5009",
+            "time-stamp": "2022-07-09T13:40:10.753877"
+          },
+          "payloadType": "error"
+        }
+      }
+    </code></pre>
+
+<h3> Error messages </h3>
+
+
+        <table border=1 cellspacing=0 cellpadding=0
          style='border-collapse:collapse;border:none'>
          <tr>
- <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
- padding:0in 5.4pt 0in 5.4pt'>
- <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Contactless Error</p>
- </td>
- <td width=325 valign=top style='width:243.75pt;border:solid windowtext 1.0pt;
- border-left:none;padding:0in 5.4pt 0in 5.4pt'>
- <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Card not presented long enough to reader. Try again or use different payment.</p>
- </td>
-</tr>
+             <th style="color: #777;">Errors you can try again or use different card</th>
+             <th style="color: #777;">Additional Info</th>
+        </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SMARTCARD_FAIL</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p style='margin-bottom:0in;line-height:normal'>Contactless Error</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SMARTCARD_INIT_FAIL</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>FALLBACK</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SMARTCARD_ABSENT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SMARTCARD_TIMEOUT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>MSR_CARD_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>PARSING_TAGS_FAILED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>DATA_FORMAT_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>APP_NO_TERM</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_MATCHING_AID</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>MANDATORY_OBJECT_MISSING</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>APP_SELECTION_RETRY</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AMOUNT_ERROR_GET</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CARD_REJECTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AIP_NOT_RECEIVED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AFL_NOT_RECEIVED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AFL_LEN_OUT_OF_RANGE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SFI_OUT_OF_RANGE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AFL_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>EXPIRATION_DATE_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>EFFECTIVE_DATE_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ISS_CODE_TABLE_OUT_OF_RANGE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CRYPTOGRAM_TYPE_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>PSE_BY_CARD_NOT_SUPPORTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SERVICE_NOT_ALLOWED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_TAG_FOUND</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CARD_BLOCKED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CARD_COMMUNICATION_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TSE_NOT_INCREASED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>COMM_NO_ONLINE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>APP_NOT_SUPPORTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TERM_DATA_NOT_PRESENT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CARD_BLOCKED2</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>DECRYPTION_OR_ENCRYPTION_FAILED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>OTHER_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_TYPE_UNKNOWN</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_AIP_NOT_SUPPORTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_TAG_8E_MISSING</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_SERIAL_NUMBER</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_WHITE_LIST</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>INVALID_COMMAND</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>DUKPT_IS_STOP</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TIMEOUT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>DECODE_MSR_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_SWIPE_MSR_CARD</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_MICROPROCESSOR_ICC_SEATED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_CARD_SEATED_TO_REQUEST_ATR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>IO_LINE_LOW</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ICC_ERROR_ON_POWER_UP</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ICC_COMMUNICATION_TIMEOUT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ICC_COMMUNICATION_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AID_LIST_OR_APP_DATA_DOES_NOT_EXIST</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TERMINAL_DATA_NOT_FOUND</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TLV_FORMAT_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CA_KEY_FULL</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>AID_LIST_FULL</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>INSERT_ICC_AGAIN</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>PROMPT_FALLBACK</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Swipe card</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NUM_OF_CHIP_RETRIES_REACHED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ICC_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NO_FINANCIAL_CARD</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ENCRYPTE_RESULT_LENGTH_MISMATCH</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>RELATED_KEY_NOT_LOADED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+            <td>
+          <p  style='margin-bottom:0in;line-height:normal'>No
+          communication</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NON_SRED_DEVICE_NEEDS_MANUFACTURER_AND_FIRMWARE_KEY</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
-          </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>DUPLICATE_KEY_DETECTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>PAN_IN_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Data Format
+          Incorrect</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ENCRYPTION_OR_DECRYPTION_FAILED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>MEMORY_NOT_ENOUGH</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Smart Card
+          Timeout</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CALL_YOUR_BANK</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>NOT_ACCEPTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Smart Card
+          Absent</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>USE_MAGSTRIPE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Swipe card</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>SMARTCARD_INIT_FAILED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+           <td>
+             <p  style='margin-bottom:0in;line-height:normal'>Fallback</p>
+           </td>
+          <td>
+
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>FALLBACK_SITUATION</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Decode MSR
+          Error</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>FALLBACK_TO_MSR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Swipe card</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>FALLBACK_TO_MSR_2</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Swipe card</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>No Swipe MSR
+          Card</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>BAD_CHIP</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Swipe card</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try inserting
+          card</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TIMEOUT_AFTER_FALLBACK</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Failed -
+          insert chip</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CARD_DATA_ELEMENT_DUPLICATE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try inserting
+          card</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>APP_NO_MATCHING</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Timeout</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>EXP_DATE_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ISS_COD_TBL_OUT_OF_RANGE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Timeout After
+          Fallback</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>LEN_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TSC_NOT_INCREASED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Terminate</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>HASH_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ARC_NOT_PRESENTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Swipe card -
+          try swipe</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>ARC_INVALID</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TRAN_TYPE_INCORRECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Bad chip or
+          contactless unsupported, try swipe -  try swipe</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>APP_NO_SUPPORT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>APP_NOT_SELECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Fallback to
+          Swipe</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>LANG_NOT_SELECT</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>TERM_DATA_NOT_PRESENTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>MSR Card
+          Error</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_TAG_8E_FORMAT_ERROR</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_CODE_IS_NOT_SUPPORTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+        <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Fallback
+          Situation</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_COND_CODE_IS_NOT_SUPPORTED</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
          <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>CVM_NO_MORE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Use MagStripe</p>
           </td>
-         </tr>
-         <tr>
-          <td width=306 valign=top style='width:229.25pt;border:solid windowtext 1.0pt;
-          border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>PIN_BYPASSED_BEFORE</p>
-          </td>
-          <td width=325 valign=top style='width:243.75pt;border-top:none;border-left:
-          none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-          padding:0in 5.4pt 0in 5.4pt'>
-          <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Use different
-          payment method</p>
+          <td>
+          <p  style='margin-bottom:0in;line-height:normal'>Try swipe</p>
           </td>
          </tr>
         </table>
+
+        <table border=1 cellspacing=0 cellpadding=0
+         style='border-collapse:collapse;border:none'>
+
+         <tr>
+             <th style="color: #777;">Errors requiring a different card or payment method</th>
+        </tr>
+        <tr>
+
+         <td>
+         <p style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
+         </td>
+
+        </tr>
+
+        <tr>
+         <td>
+         <p  style='margin-bottom:0in;line-height:normal'>No Serial
+         Number</p>
+         </td>
+        </tr>
+        <tr>
+         <td>
+         <p  style='margin-bottom:0in;line-height:normal'>Cvm Tag 8E
+         Missing</p>
+         </td>
+        </tr>
+        <tr>
+         <td>
+         <p  style='margin-bottom:0in;line-height:normal'>Cvm AIP Not
+         Supported</p>
+         </td>
+        </tr>
+        <tr>
+         <td>
+         <p  style='margin-bottom:0in;line-height:normal'>Cvm Type
+         Unknown</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Other Error</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>App not
+         supported</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>ISS Code
+         Table out of range</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Effective
+         Date Incorrect</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Terminal Data
+         Does Not Exist</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Tlv Format
+         Error</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>CA Key Is
+         Full</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>AID List Is
+         Full</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>AID List /
+         Application Data does not exist</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>No financial
+         card</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Chip error</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>In Encrypt
+         Result state, TLV total Length is greater than Max Length</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Non SRED
+         Device Needs Manufacturer and Firmware Key</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Duplicate key
+         Detected</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Pan Error</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Encryption or
+         Decryption Failed</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Call Your
+         Bank</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Memory Not
+         Enough</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Smart Card
+         Fail</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Smart Card
+         Init Failed</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Undocumented</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Parsing tags
+         Failed</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Not Accepted</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Expiration
+         Date Incorrect</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Card
+         Communication Error</p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Card Blocked </p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>No Tag Found </p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Service Not
+         Allowed </p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Card Rejected
+         </p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>Bad
+         Cryptogram </p>
+         </td>
+        </tr>
+        <tr>
+         <td
+         >
+         <p  style='margin-bottom:0in;line-height:normal'>&nbsp;</p>
+         </td>
+        </tr>
+
+        </table>
+
+
+
+                <table border=1 cellspacing=0 cellpadding=0
+                 style='border-collapse:collapse;border:none'>
+                 <tr>
+                     <th style="color: #777;">Errors indicating reader is misconfigured or not working properly</th>
+
+                </tr>
+
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>No
+  Microprocessor ICC seated</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>No Card
+  Seated To Request ATR</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>IO line low
+  -- Card error after session start</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>ICC Error On
+  Power Up</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>ICC
+  Communication Timeout</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>ICC
+  Communication Error</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>DUKPT is STOP
+  21 Bit 1</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>Invalid
+  Command, Protocol is Right But task id is invalid</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>No White List</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>TSC Not
+  Increased</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>App No Term</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>No matching
+  Aid</p>
+  </td>
+ </tr>
+ <tr>
+  <td
+  >
+  <p  style='margin-bottom:0in;line-height:normal'>Mandatory
+  Object Missing</p>
+  </td>
+ </tr>
+</table>
+
+
+<h3>Appendix A – Related Links</h3>
+
+<p
+><span style='line-height:106%'>Refer to the following table
+for links to helpful resources:</span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td>
+  <p
+  ><b>Description</b></p>
+  </td>
+  <td>
+  <p> Links</p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+  <p>Clearent
+  JavaScript SDK</p>
+  </td>
+  <td>
+  <p><a href="https://clearent.github.io/javascript-sdk/">https://clearent.github.io/javascript-sdk/</a></p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+  <p>IDTech VP8300 Documentation</p>
+  </td>
+  <td>
+  <p><a href="https://atlassian.idtechproducts.com/confluence/pages/viewpage.action?pageId=47286233">VP8300 Home</a></p>
+  </td>
+ </tr>
+
+</table>
 
       </section>
       <footer>
